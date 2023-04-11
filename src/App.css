@@ -1,6 +1,100 @@
 .App {
-  text-align: center;
+  text-align: center;display: flex;
+  width: 100%;
 }
+body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'SF Pro Display';
+}
+.wrapper{
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  width: 100%;
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./Fonts/SFProDisplay-BlackItalic.woff2') format('woff2'),
+      url('./Fonts/SFProDisplay-BlackItalic.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./Fonts/SFProDisplay-HeavyItalic.woff2') format('woff2'),
+      url('./Fonts/SFProDisplay-HeavyItalic.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./Fonts/SFProDisplay-Bold.woff2') format('woff2'),
+      url('./Fonts/SFProDisplay-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./Fonts/SFProDisplay-LightItalic.woff2') format('woff2'),
+      url('./Fonts/SFProDisplay-LightItalic.woff') format('woff');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./Fonts/SFProDisplay-Medium.woff2') format('woff2'),
+      url('./Fonts/SFProDisplay-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./Fonts/SFProDisplay-SemiboldItalic.woff2') format('woff2'),
+      url('./Fonts/SFProDisplay-SemiboldItalic.woff') format('woff');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./Fonts/SFProDisplay-Regular.woff2') format('woff2'),
+      url('./Fonts/SFProDisplay-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./Fonts/SFProDisplay-ThinItalic.woff2') format('woff2'),
+      url('./Fonts/SFProDisplay-ThinItalic.woff') format('woff');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('./Fonts/SFProDisplay-UltralightItalic.woff2') format('woff2'),
+      url('./Fonts/SFProDisplay-UltralightItalic.woff') format('woff');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
 
 .App-logo {
   height: 40vmin;
@@ -9,31 +103,30 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
+    animation: App-logo-spin infinite 20s linear;
   }
 }
 
 .App-header {
+  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+  color: white;
 }
 
 .App-link {
-  color: rgb(112, 76, 182);
+  color: #61dafb;
 }
 
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
   }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
+  to {
+    transform: rotate(360deg);
   }
 }

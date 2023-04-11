@@ -1,0 +1,40 @@
+input{
+    flex: 1;
+    // width: 100%;
+    border:none;
+    font-size: 18px;
+    padding: 16.8px;
+    border-radius: 7px;
+    background: #F1F1F2;
+    color: #848489;
+    outline: none;
+}
+label{
+    font-size: 16px;
+    padding-bottom: 10px;
+}
+.sign-up{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.containers{
+    display: flex;
+    flex-direction: column;
+    max-width: 320px;
+    padding: 10px;
+
+}
+
+button{
+    width: 100%;
+    font-size: 24px;
+    padding: 10px;
+    background: #A1E6E0;
+    color: white;
+    border-radius: 7px;
+    border: none;
+    font-family: "SF Pro Display";
+    font-weight: 500;
+}
