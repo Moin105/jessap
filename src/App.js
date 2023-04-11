@@ -61,7 +61,7 @@ const isLoggedIn = Boolean(Cookies.get("token"));
                    {/* <Route path="/addsops" element={<AddSops />} /> */}
         </>
       {/* ) : ( */}
-        // Redirect to sign in page for unauthorized users
+        {/* // Redirect to sign in page for unauthorized users */}
         <Route to="/" element={<Signin/>}/>
       {/* )} */}
             
