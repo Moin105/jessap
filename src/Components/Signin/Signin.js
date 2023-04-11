@@ -51,7 +51,7 @@ const Signin = () => {
   const auth = useSelector(state => state.auth);
  useEffect(() => {
    console.log("wertyj",auth)
-   if(auth.token !== ""){
+   if(auth.token !== null){
     // Cookies.set('token', token);
 
     handleRouteChange('/home')
