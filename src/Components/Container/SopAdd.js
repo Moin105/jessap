@@ -9,7 +9,7 @@ function SopAdd({show,setShow}) {
   return (
     
 <React.Fragment>
-<div className="container">
+<div className="container" stu>
   <Header   show={show} setShow={setShow}/>
 {/* <AddSops/>
 </div>

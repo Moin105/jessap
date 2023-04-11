@@ -29,8 +29,8 @@ const isLoggedIn = Boolean(Cookies.get("token"));
     <div className="wrapper">
       
         <Routes>
-        <Route  path="/"  element={<Signin/>}/>
-        {isLoggedIn ? (
+        {/* <Route  path="/"  element={<Signin/>}/> */}
+        {/* {isLoggedIn ? ( */}
         <>
          <Route
            path="/home"
@@ -60,10 +60,10 @@ const isLoggedIn = Boolean(Cookies.get("token"));
          />
                    {/* <Route path="/addsops" element={<AddSops />} /> */}
         </>
-      ) : (
+      {/* ) : ( */}
         // Redirect to sign in page for unauthorized users
         <Route to="/" element={<Signin/>}/>
-      )}
+      {/* )} */}
             
         </Routes>
       
