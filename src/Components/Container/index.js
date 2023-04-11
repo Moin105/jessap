@@ -10,10 +10,7 @@ function Container({show,setShow}) {
     <React.Fragment>
       <div className="container">
         <Header   show={show} setShow={setShow}/>
-        <Routes>
-          <Route path="/" element={<Sops />} />
-          {/* <Route path="/addsops" element={<AddSops />} /> */}
-        </Routes>
+       <Sops />
       </div>
     </React.Fragment>
   );

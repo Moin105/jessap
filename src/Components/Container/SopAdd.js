@@ -11,9 +11,7 @@ function SopAdd({show,setShow}) {
 <React.Fragment>
 <div className="container" stu>
   <Header   show={show} setShow={setShow}/>
-{/* <AddSops/>
-</div>
-    <div> */}
+
         <Editor/>
     </div>
 </React.Fragment>
