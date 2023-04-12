@@ -14,6 +14,7 @@ body{
   justify-content: center;
   width: 100%;
 }
+
 @font-face {
   font-family: 'SF Pro Display';
   src: url('./Fonts/SFProDisplay-BlackItalic.woff2') format('woff2'),
