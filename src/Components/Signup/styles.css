@@ -35,6 +35,7 @@ label {
 
 .wid {
   width: 256px;
+  margin: 0 auto;
 }
 
 button {
