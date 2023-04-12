@@ -7,6 +7,7 @@ import { Formik, Form, Field } from "formik";
 import { Route, Routes } from "react-router-dom";
 import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import  './styles.css'
+import '../Signin/styles.css'
 function SopAdd({show,setShow}) {
   return (
     

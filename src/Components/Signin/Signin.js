@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { loginSuccess } from "../../features/counter/authActions";
 import { signupSuccess } from "../../features/counter/authActions";
 // import { registerUser } from '../features/auth/authActions'
+import { Link } from "react-router-dom";
 // import { registerUser } from "../../features/auth/authAction";
 import { useEffect } from "react";
 import { onlineManager } from "react-query";
@@ -156,6 +157,7 @@ const Signin = ({onLogin}) => {
             <button style={{margin:"10px 0px"}} type="submit" disabled={isSubmitting}>
               {isSubmitting ? 'Logging in...' : 'Submit'}
             </button>
+            <span>Dont have ana account?<Link to="/signup"><p>Sign Up</p></Link></span>
           </Form>
         )}
       </Formik>
