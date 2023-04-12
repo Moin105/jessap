@@ -1,9 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './myy-snow.css';
 
-function Editor() {
+function Editor({setSop}) {
   const [content, setContent] = useState('');
   const inputRef = useRef(null);
   const quillRef = useRef(null);
@@ -31,6 +31,9 @@ function Editor() {
   const handleImageUpload = () => {
     inputRef.current.click();
   };
+useEffect(() => {
+   console.log("safer",content)
+}, [content])
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -54,7 +57,17 @@ function Editor() {
       ['image'],
     ],
   };
+  const handleClick = () => {
+    setSop(content)
+    const quillInstance = quillRef.current.getEditor();
+    const editorContent = quillInstance.root.innerHTML;
 
+    // Do something with the content (e.g., display in an alert or console.log)
+    console.log(editorContent);
+
+    // Clear the editor content
+    quillInstance.setContents([]);
+  };
   return (
     <div style={{width: "90%",margin: "0 auto"}}> 
       <div>
@@ -67,6 +80,8 @@ function Editor() {
         <input type="file" accept="image/*" style={{ display: 'none' }} ref={inputRef} onChange={handleFileChange} />
       </div>
       <ReactQuill ref={quillRef} value={content} onChange={setContent} modules={modules} />
+      <button onClick={handleClick}>Get HTML and Clear Editor</button>
+
     </div>
   );
 }

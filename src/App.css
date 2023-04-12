@@ -10,11 +10,13 @@ body{
 }
 .wrapper{
   display: flex;
-  align-items: center; 
+  /* align-items: center;  */
   justify-content: center;
   width: 100%;
 }
-
+p,div,label ,span ,input ,textarea,option ,select{
+  font-family: 'SF Pro Display';
+}
 @font-face {
   font-family: 'SF Pro Display';
   src: url('./Fonts/SFProDisplay-BlackItalic.woff2') format('woff2'),

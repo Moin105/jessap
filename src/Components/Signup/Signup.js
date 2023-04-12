@@ -157,7 +157,7 @@ const Signup = ({isAuthenticated}) => {
       <div className="contaiers">
       {/* Render login form using Formik */}
       <Formik
-        initialValues={{ email: '', password: '',first_name:'', sur_name:'',c_password:'',signup_type:'' ,company:''}}
+        initialValues={{ email: '', password: '',first_name:'', sur_name:'',c_password:'',signup_type:'normal' ,company:''}}
         onSubmit={handleLogin}
       >
         {({ isSubmitting }) => (
@@ -199,15 +199,15 @@ const Signup = ({isAuthenticated}) => {
                 />
               </FormControl>
               <FormControl>
-                <FormLabel htmlFor="signup_type">company</FormLabel>
-                <Field as={Input} type="signup_type" name="signup_type" id="signup_type" />
+                <FormLabel htmlFor="company">company</FormLabel>
+                <Field as={Input} type="company" name="company" id="company" />
               </FormControl>
 
             </div>
-                <FormControl className="wid">
+                {/* <FormControl className="wid">
                 <FormLabel htmlFor="signup_type">company</FormLabel>
                 <Field as={Input} type="company" name="company" id="company" />
-              </FormControl>
+              </FormControl> */}
           
               {/* <Button
                 mt={4}
