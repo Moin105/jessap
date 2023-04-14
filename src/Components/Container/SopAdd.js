@@ -67,7 +67,7 @@ function SopAdd({ show, setShow }) {
       <div className="container">
         <Header show={show} setShow={setShow} />
        
-        <div className="container-sop">
+        <div className="container-sop" style={{width:"100%",alignItems:"center"}}>
           <h2>Add Sop</h2>
           <Formik
             initialValues={{
@@ -84,26 +84,28 @@ function SopAdd({ show, setShow }) {
               <Form className="form">
                <div className="sikna"> 
                 <FormControl>
-                  <FormLabel htmlFor="title">Example SOP</FormLabel>
+                  <FormLabel htmlFor="title">Title</FormLabel>
                   <Field as={Input} type="title" name="title" id="title" />
                 </FormControl>
                 <FormControl>
-                  <FormLabel htmlFor="title">Example SOP</FormLabel>
-                  <Field as={Input} type="s" name="title" id="s" value={"Single Type"} />
+                  <FormLabel htmlFor="title">Sop</FormLabel>
+                  <Field as={Input}isReadOnly={true} type="s" name="title" id="s" value={"Single SOP"} />
                 </FormControl>
                </div> 
-                <FormControl>
+                <FormControl style={{
+    width: "90%",
+    margin: "0 auto"}}>
                   <FormLabel htmlFor="description">Description</FormLabel>
                   <Field
                     as="textarea"
                     id="description"
+                  
                     name="description"
-                    placeholder="Enter description"
                   />
                 </FormControl>
                 <Editor setSop={setContent}  contents={content}/>
                 <button
-                  style={{ margin: "10px 0px" }}
+                  style={{ margin: "10px 0px",maxWidth:"320px",width:"95%" }}
                   type="submit"
                   disabled={isSubmitting}
                 >

@@ -32,9 +32,9 @@ function Editor({setSop , contents}) {
   const handleImageUpload = () => {
     inputRef.current.click();
   };
-  useEffect(() => {
-    setContent(contents)
-  }, [])
+  // useEffect(() => {
+  //   setContent(contents)
+  // }, [])
   
 useEffect(() => {
    console.log("safer",contents)
@@ -88,7 +88,7 @@ useEffect(() => {
         <button onClick={handleImageUpload}>Upload Image</button> */}
         <input type="file" accept="image/*" style={{ display: 'none' }} ref={inputRef} onChange={handleFileChange} />
       </div>
-      <ReactQuill ref={quillRef} value={content} onChange={setSop} modules={modules} />
+      <ReactQuill ref={quillRef} value={content} onChange={setContent} modules={modules} />
       {/* <button onClick={handleClick}>Get HTML and Clear Editor</button> */}
 
     </div>

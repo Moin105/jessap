@@ -22,7 +22,7 @@
     }
     textarea{
         flex: 1;
-        width: 100%;
+        width: 95%;
         border:none;
         font-size: 24px;
         padding: 10.8px 0px 10px 42px;
@@ -30,7 +30,7 @@
         background: #F1F1F2;
         color: #848489;
         outline: none;
-        height: 300px;
+        height: 130px;
     }
     .container-sop{
         display: flex;
@@ -50,11 +50,13 @@
             .sikna{
                 display: flex;justify-content: space-between;
                 gap: 40px;
+                width: 90%;margin:0 auto;
+
                  div{
 
                     width: 46%;
                     input{
-                        width: 100%;
+                        width: 90%;
                     }
                  }
             }
