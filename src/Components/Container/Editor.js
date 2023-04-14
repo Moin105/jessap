@@ -78,7 +78,7 @@ useEffect(() => {
     quillInstance.setContents([]);
   };
   return (
-    <div style={{width: "90%",margin: "0 auto"}}> 
+    <div style={{width: "98%",margin: "30px auto"}}> 
       <div>
         {/* <button onClick={handleBold}>Bold</button>
         <button onClick={handleItalic}>Italic</button>

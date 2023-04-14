@@ -30,7 +30,7 @@ function SideBar({ show, setShow }) {
              <Link to='/users'> <Tab name="User" icon={user} /></Link>
               <Tab name="Support" icon={whatsapp} />
               <Tab name="Add employees" icon={user} />
-              <Tab name="Assign Sop" icon={user} />
+              <Tab name="Assign SOP" icon={user} />
                  
                 
             </div>

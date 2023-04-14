@@ -10,6 +10,7 @@ import { Route, Routes } from "react-router-dom";
 import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import "./styles.css";
 import "../Signin/styles.css";
+import {FiChevronDown} from 'react-icons/fi'
 function SopAdd({ show, setShow }) {
   const [content, setContent] = useState(null);
   const [sopformat, setSopFormat] = useState({});
@@ -72,7 +73,7 @@ function SopAdd({ show, setShow }) {
         <Header show={show} setShow={setShow} />
        
         <div className="container-sop" style={{width:"100%",alignItems:"center"}}>
-          <h2>Add Sop</h2>
+          <h2>Add SOP</h2>
           <Formik
             initialValues={{
               title: "",
@@ -91,14 +92,16 @@ function SopAdd({ show, setShow }) {
                   <FormLabel htmlFor="title">Title</FormLabel>
                   <Field as={Input} type="title" name="title" id="title" />
                 </FormControl>
-                <FormControl>
+                <FormControl style={{position:"relative"}}>
                   <FormLabel htmlFor="title">Sop</FormLabel>
                   <Field as={Input}isReadOnly={true} type="s" name="title" id="s" value={"Single SOP"} />
+                  <span style={{fontSize:"14px",position:"absolute",right:"10px",top: "45px",color: "#848489"}}>  
+                  <FiChevronDown color='green.500' />
+                  </span>
                 </FormControl>
                </div> 
                 <FormControl style={{
-    width: "90%",
-    margin: "0 auto"}}>
+    display:"flex",flexDirection:"column"}}>
                   <FormLabel htmlFor="description">Description</FormLabel>
                   <Field
                     as="textarea"
