@@ -33,7 +33,7 @@
   color: #848489;
   outline: none;
   height: 130px;
-  width: 96%;
+  width: -webkit-fill-available;
   margin: 0 auto;
 }
 .container .container-sop {
@@ -59,10 +59,10 @@
   gap: 40px;
 }
 .container .container-sop .form .sikna div {
+  display: flex;
+  flex-direction: column;
   width: 46%;
-}
-.container .container-sop .form .sikna div input {
-  width: 90%;
+  margin-bottom: 20px;
 }
 .container .container-sop .sop-container-row {
   display: flex;

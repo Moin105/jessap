@@ -33,7 +33,7 @@
         color: #848489;
         outline: none;
         height: 130px;
-        width: 96%;
+        width: -webkit-fill-available;
     margin: 0 auto;
 
     }
@@ -58,10 +58,12 @@
                 // width: 90%;margin:0 auto;
 
                  div{
-
+                    display: flex;
+                    flex-direction: column;
                     width: 46%;
+                    margin-bottom: 20px;
                     input{
-                        width: 90%;
+                        // width: 90%;
                     }
                  }
             }

@@ -5,7 +5,7 @@ import Sops from "./Sops";
 import AddSops from "./AddSops";
 import { Formik, Form, Field } from "formik";
 import Cookies from 'js-cookie';
-
+import { useNavigate } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
 import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import "./styles.css";
@@ -17,6 +17,7 @@ function SopAdd({ show, setShow }) {
   useEffect(() => {
     console.log("qwertyuiolkjhgfds", content);
   }, [content]);
+
   async function postData(data) {
     console.log("mpeen",data)
     try {
@@ -42,7 +43,15 @@ function SopAdd({ show, setShow }) {
       throw error;
     }
   }
-
+  const navigate = useNavigate();
+  // Function to handle route change
+  const handleRouteChange = (route) => {
+    // Use the navigate() function to navigate to the specified route
+    navigate(route);
+  };
+  const checkForSuccessfull = (str) => {
+    return str.includes('successfull');
+  };
   const handleLogin = async (values, { setSubmitting }) => {
     console.log("qwertyyuiu", values, content);
     setSopFormat({
@@ -61,6 +70,12 @@ function SopAdd({ show, setShow }) {
     })
       .then((res) => {
         console.log("safweewg", res);
+        const isPresent = checkForSuccessfull(res.message);
+        //   "Company Registered successfully."
+          console.log(isPresent); 
+          if (isPresent){
+            handleRouteChange('/home')
+          }
         // Handle successful API call
       })
       .catch((error) => {
@@ -95,7 +110,7 @@ function SopAdd({ show, setShow }) {
                 <FormControl style={{position:"relative"}}>
                   <FormLabel htmlFor="title">Sop</FormLabel>
                   <Field as={Input}isReadOnly={true} type="s" name="title" id="s" value={"Single SOP"} />
-                  <span style={{fontSize:"25px",position:"absolute",right:"10px",top: "45px",color: "#848489"}}>  
+                  <span style={{fontSize:"25px",position:"absolute",right:"40px",top: "45px",color: "#848489"}}>  
                   <FiChevronDown color='green.500' />
                   </span>
                 </FormControl>

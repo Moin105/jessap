@@ -25,11 +25,11 @@ function App() {
   const currentState = store.getState(); 
   const auth = useSelector(state => state.auth);
   const token = Cookies.get('token');
-  const navigate = useNavigate();
   const handleAuthentication = (status) => {
     console.log(status)
     setIsAuthenticated(status);
   };
+  const navigate = useNavigate();
   // Function to handle route change
   const handleRouteChange = (route) => {
     // Use the navigate() function to navigate to the specified route
