@@ -4,42 +4,12 @@ import Sops from "./Sops";
 import AddSops from "./AddSops";
 import './indi.css'
 import { Route, Routes } from "react-router-dom";
-// // import {  } from 'react-router-dom';
-
-
-// import "./styles.css";
-// function ShowSop({show,setShow}) {
-//     const { id } = useParams(); // Extract the 'id' route parameter from the URL
-//     const location = useLocation();
-//     const data = location.state?.data;
-// useEffect(() => {
-//  console.log("bimbo",id)
-// }, [])
-  
-//   return (
-//     <React.Fragment>
-//       <div className="container">
-//         <Header   show={show} setShow={setShow}/>
-//         <React.Fragment>
-//              <div className='container-sop'>
-//             <h3>SOPs</h3>
-           
-//             <div className='sop-container-row'>
-//                   wefew
-//              </div>we
-//             </div>
-//    </React.Fragment>
-//       </div>
-//     </React.Fragment>
-//   );
-// }
-
-// export default ShowSop;
 import React, { useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { useState } from "react";
 import Slider from 'react-slick';
 import ReactQuill from 'react-quill';
+import HtmlViewer from "./HtmlViewer";
 import Editor from "./Editor";
 import 'react-quill/dist/quill.snow.css';
 // import "slick-carousel/slick/slick.css";
@@ -127,15 +97,22 @@ const settings = {
 //     </React.Fragment>
 //   );
 return (
+    <React.Fragment>
+<div className="container">
+<Header   show={show} setShow={setShow}/>
     <div>
     {arr.map((object, objectIndex) => (
       <div key={objectIndex}>
-        <h2>{object.title}</h2>
+        <div className="row">
+         <h2>{object.title}</h2>
+        </div>
         <p>{object.description}</p>
+        <div className="sigma">
+
        {object.pages !== [] ? 
         // <Slider settings={settings}>
         <>  {object.steps.map((page, pageIndex) => (
-            <div key={pageIndex}>
+            <div key={pageIndex} className="sig">
               {editablePageIndex?.objectIndex === objectIndex &&
               editablePageIndex?.pageIndex === pageIndex ? (
              <>
@@ -148,23 +125,33 @@ return (
              </>  
                 
               ) : (
-                <div>
+                <>
                     <p>{editablePageIndex?.objectIndex}</p>
                   <h3>{page.pageTitle}</h3>
-                  {page.pageContent}
-                  <button onClick={() => handlePageEdit(objectIndex, pageIndex)}>
+                  <HtmlViewer html={page.pageContent} />
+                  {/* {page.pageContent} */}
+                  {/* <button onClick={() => handlePageEdit(objectIndex, pageIndex)}>
                     Edit
-                  </button>
-                </div>
+                  </button> */}
+                </>
               )}
             </div>
           ))}</>
         // </Slider>
         : "no data"}
+        </div>    
       </div>
     ))}
-  </div>
+  </div></div>
+</React.Fragment>
 )
 }
 
 export default DynamicComponent;
+
+
+
+
+
+  
+//  <Sops />
