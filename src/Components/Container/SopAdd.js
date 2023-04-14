@@ -53,7 +53,11 @@ function SopAdd({ show, setShow }) {
     setTimeout(() => {
       console.log("khan painchod", sopformat);
     }, 3000);
-    postData(sopformat)
+    postData({
+      title: values.title,
+      description: values.description,
+      pages: [{ pageTitle: "ok", pageNumber: "1", pageContent: content }],
+    })
       .then((res) => {
         console.log("safweewg", res);
         // Handle successful API call
