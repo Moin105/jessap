@@ -89,7 +89,7 @@ function SopAdd({ show, setShow }) {
                 </FormControl>
                 <FormControl>
                   <FormLabel htmlFor="title">Example SOP</FormLabel>
-                  <Field as={Input} type="title" name="title" id="title" />
+                  <Field as={Input} type="s" name="title" id="s" value={"Single Type"} />
                 </FormControl>
                </div> 
                 <FormControl>
