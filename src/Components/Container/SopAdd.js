@@ -95,7 +95,7 @@ function SopAdd({ show, setShow }) {
                 <FormControl style={{position:"relative"}}>
                   <FormLabel htmlFor="title">Sop</FormLabel>
                   <Field as={Input}isReadOnly={true} type="s" name="title" id="s" value={"Single SOP"} />
-                  <span style={{fontSize:"14px",position:"absolute",right:"10px",top: "45px",color: "#848489"}}>  
+                  <span style={{fontSize:"25px",position:"absolute",right:"10px",top: "45px",color: "#848489"}}>  
                   <FiChevronDown color='green.500' />
                   </span>
                 </FormControl>
