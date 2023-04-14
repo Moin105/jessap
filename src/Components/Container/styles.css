@@ -225,4 +225,7 @@
   margin: 50px;
   border: 1px solid;
   border-radius: 16px;
+}
+.sigma .sig ul {
+  list-style-type: none;
 }/*# sourceMappingURL=styles.css.map */

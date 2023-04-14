@@ -2,3 +2,12 @@
     background-color: black;
     color: white;
 }
+.checkbox {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #ccc;
+    margin-right: 8px;
+    vertical-align: middle;
+    pointer-events: none;
+  }
