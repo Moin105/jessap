@@ -13,6 +13,9 @@ import { useSelector } from "react-redux";
 import AddSop from "./Components/Container/AddSop";
 import SopAdd from "./Components/Container/SopAdd";
 import Signup from "./Components/Signup/Signup";
+import ShowSop from "./Components/Container/ShowSop";
+import DynamicComponent from "./Components/Container/ShowSop";
+import Users from "./Components/Container/Users";
 
 
 function App() {
@@ -51,17 +54,15 @@ const isLoggedIn = Boolean(Cookies.get("token"));
         <Routes>
         {/* <Route  path="/"  element={<Signin/>}/> */}
         {/* {isLoggedIn ? ( */}
-        <Route
+   {  !isAuthenticated ? <>  <Route
           path="/login"
           element={!isAuthenticated ? <Signin onLogin={handleAuthentication} /> : <Navigate to="/home" replace />}
         />
         <Route
           path="/signup"
           element={!isAuthenticated ? <Signup onSignup={handleAuthentication} /> : <Navigate to="/home" replace />}
-        />
-        {/* <Route exact path="/" element={<Signin/>} /> */}
+        /> </>:
         <Route path="/" element={<AuthenticatedRoute isAuthenticated={isAuthenticated} />}>
-
         {/* <Route to="/" element={<Signin/>}/> */}
          <Route
            path="/home"
@@ -89,7 +90,10 @@ const isLoggedIn = Boolean(Cookies.get("token"));
              </>
            }
          />
-        </Route>  
+           {/* <Route path="/dynamic/:id" component={<ShowSop/>} /> */}
+           <Route path="/dynamic/:id" element={<DynamicComponent show={show} setShow={setShow} />} />
+           <Route path="/users" element={<Users show={show} setShow={setShow} />} />
+        </Route>  }
                    {/* <Route path="/addsops" element={<AddSops />} /> */}
       {/* ) : ( */}
         {/* // Redirect to sign in page for unauthorized users */}

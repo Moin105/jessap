@@ -3,7 +3,7 @@ import Rowsop from './Rowsop'
 import setting from "../../Images/setting.png";
 import check from "../../Images/check.png";
 import document from "../../Images/document.png";
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate} from 'react-router-dom';
 import Cookies from 'js-cookie';
 import {CgSearch} from 'react-icons/cg'
 import {  fetchDataRequest,
@@ -16,6 +16,7 @@ import { useDispatch,useSelector} from 'react-redux';
 //     'Authorization': 
 //   }
 // };
+
 export const fetchData = (config) => {
   return (dispatch) => {
     dispatch(fetchDataRequest());
@@ -44,10 +45,14 @@ function Sops() {
   const dispatch = useDispatch();
   const sop = useSelector(state => state.sops);
   // const token ={Authorization:}
+  const navigate = useNavigate();
   const config = {
     headers: {
       'Authorization':`Bearer  ${Cookies.get("token")}`
     }
+  };
+  const handleClick = (id,data) => {
+    navigate(`/dynamic/${id}`);
   };
 useEffect(() => {
   console.log("container",sop)
@@ -69,8 +74,8 @@ useEffect(() => {
             </div>
             <div className='card-sop'>
               {sop !== [] ? sop.data.map((sops,index )=>{
-               return <> <Rowsop  icon={setting}title={sops.title} description={sops.description}/> </>
-              }):"no data"  }
+               return ( <Rowsop data={sops}  icon={setting}title={sops.title} description={sops.description}/>
+)              }):"no data"  }
              
               {/* <Rowsop icon={check}/>
               <Rowsop icon={document}/> */}

@@ -32,9 +32,6 @@ function SopAdd({ show, setShow }) {
         }
       );
 
-      // if (!response.ok) {
-      //   throw new Error(`HTTP error! Status: ${response.status}`);
-      // }
 
       const result = await response.json();
       console.log("Data posted successfully:", result);
@@ -64,29 +61,14 @@ function SopAdd({ show, setShow }) {
       .catch((error) => {
         // Handle errors
       });
-    // try {
-    //   // const response = await signup(values);
-    //   // const {password , email} = values;
-    //   //   console.log(password ,email )
-
-    // //   const { email } = response.user;
-    // //   const   {password} = values.password
-    //   // Dispatch loginSuccess action with token
-    //   // dispatch(signupSuccess());
-    //   // const checkForSuccessfull = (str) => {
-    //   //   return str.includes('successfull');
-    //   // };
-    // }catch{
-
-    // }
-    //   const inputString = 'The operation was successfull!';
   };
   return (
     <React.Fragment>
       <div className="container">
         <Header show={show} setShow={setShow} />
-        <Editor setSop={setContent} />
-        <div className="contaiers">
+       
+        <div className="container-sop">
+          <h2>Add Sop</h2>
           <Formik
             initialValues={{
               title: "",
@@ -96,13 +78,20 @@ function SopAdd({ show, setShow }) {
               ],
             }}
             onSubmit={handleLogin}
+            
           >
             {({ isSubmitting }) => (
-              <Form>
+              <Form className="form">
+               <div className="sikna"> 
                 <FormControl>
                   <FormLabel htmlFor="title">Example SOP</FormLabel>
                   <Field as={Input} type="title" name="title" id="title" />
                 </FormControl>
+                <FormControl>
+                  <FormLabel htmlFor="title">Example SOP</FormLabel>
+                  <Field as={Input} type="title" name="title" id="title" />
+                </FormControl>
+               </div> 
                 <FormControl>
                   <FormLabel htmlFor="description">Description</FormLabel>
                   <Field
@@ -112,6 +101,7 @@ function SopAdd({ show, setShow }) {
                     placeholder="Enter description"
                   />
                 </FormControl>
+                <Editor setSop={setContent}  contents={content}/>
                 <button
                   style={{ margin: "10px 0px" }}
                   type="submit"

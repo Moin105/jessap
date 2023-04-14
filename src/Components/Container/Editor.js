@@ -3,8 +3,9 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './myy-snow.css';
 
-function Editor({setSop}) {
+function Editor({setSop , contents}) {
   const [content, setContent] = useState('');
+
   const inputRef = useRef(null);
   const quillRef = useRef(null);
 
@@ -31,8 +32,16 @@ function Editor({setSop}) {
   const handleImageUpload = () => {
     inputRef.current.click();
   };
+  useEffect(() => {
+    setContent(contents)
+  }, [])
+  
 useEffect(() => {
-   console.log("safer",content)
+   console.log("safer",contents)
+
+  
+   setSop(content)
+
 }, [content])
 
   const handleFileChange = (event) => {
@@ -79,8 +88,8 @@ useEffect(() => {
         <button onClick={handleImageUpload}>Upload Image</button> */}
         <input type="file" accept="image/*" style={{ display: 'none' }} ref={inputRef} onChange={handleFileChange} />
       </div>
-      <ReactQuill ref={quillRef} value={content} onChange={setContent} modules={modules} />
-      <button onClick={handleClick}>Get HTML and Clear Editor</button>
+      <ReactQuill ref={quillRef} value={content} onChange={setSop} modules={modules} />
+      {/* <button onClick={handleClick}>Get HTML and Clear Editor</button> */}
 
     </div>
   );
