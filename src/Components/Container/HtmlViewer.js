@@ -59,14 +59,14 @@ const HtmlViewer = ({ html }) => {
           // Handle unordered list
           const listItems = match
             .replace(/<li>(.*?)<\/li>/gs, "<li>$1</li>")
-            .replace("<ul>", "<ol>")
+            .replace("<ul>", "<ol class='sd'>")
             .replace("</ul>", "</ol>");
           return `<div class="list-wrapper">${listItems}</div>`;
         } else {
           // Handle ordered list
           const listItems = match.replace(
             /<li>(.*?)<\/li>/gs,
-            '<li><input type="checkbox" checked/>$1</li>'
+            '<li><input type="checkbox" onclick="return false;"/>$1</li>'
           );
           return `<div class="list-wrapper">${listItems}</div>`;
         }

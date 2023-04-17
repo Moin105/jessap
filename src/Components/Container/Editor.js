@@ -4,7 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import './myy-snow.css';
 
 function Editor({setSop , contents}) {
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(contents);
 
   const inputRef = useRef(null);
   const quillRef = useRef(null);
@@ -37,7 +37,7 @@ function Editor({setSop , contents}) {
   // }, [])
   
 useEffect(() => {
-   console.log("safer",contents)
+   console.log("safer",content)
 
   
    setSop(content)

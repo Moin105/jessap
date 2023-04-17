@@ -10,21 +10,93 @@ import { useState } from "react";
 import Slider from 'react-slick';
 import ReactQuill from 'react-quill';
 import HtmlViewer from "./HtmlViewer";
+import Cookies from "js-cookie";
 import Editor from "./Editor";
 import 'react-quill/dist/quill.snow.css';
-// import "slick-carousel/slick/slick.css";
+
+export const fetchData = (config,sopid) => {
+  // return (dispatch) => {
+    // dispatch(fetchUsersRequest());
+    console.log("config")
+    fetch('https://phplaravel-391561-3408566.cloudwaysapps.com/api/UpdateSOP/' + sopid ,config) // Replace with your API endpoint
+      .then(response => {
+        return response.json();
+      })
+      .then((response) => {
+        // Use parsed JSON data and text data as needed
+        console.log('JSON data:', response);
+      //   console.log('Text data:', text);
+        // dispatch(fetchUsersSuccess(response)); // Dispatch success action with fetched data
+      })
+      .catch(error => {
+        // dispatch(fetchUsersFailure(error.message));
+      });
+  // };
+};
+
 function DynamicComponent({show,setShow}) {
   const { id } = useParams(); // Extract the 'id' route parameter from the URL
   const location = useLocation();
   const dataas = location.state?.dataas; // Extract data from location.state
   const  information = dataas.sop
   const [arr, setArr] = useState([information])
+  const [editablePageIndex, setEditablePageIndex] = useState(null);
+  const [content, setContent] = useState(null);
+  const config = {
+    headers: {
+      'Authorization':`Bearer  ${Cookies.get("token")}`,
+      'Content-Type': 'application/json'
+    }
+  };
+
+  const [updated ,setUpdated] = useState({
+    title:arr[0].title,
+    description:arr[0].description,
+    pages:[
+        {
+            pageTitle:"ok",
+            sop_id:arr[0].steps[0].sop_id,
+            pageNumber:"1",
+            pageContent:content
+        }
+    ]
+  })
 useEffect(() => {
-  console.log("moeen",information)
+  console.log("qwertyuiop",Cookies.get("token"))
+  console.log("moeen",content)
+
   setTimeout(() => {
     console.log("moeen",arr)
   }, 2000);
 }, [])
+useEffect(() => {
+  console.log("werthj",content,updated)
+  // id:arr[0]
+  console.log("werthj2",arr[0].steps[0].sop_id)
+  const {pages} = updated ;
+  const newPages = [  {    ...updated.pages[0], // Copy all the properties of the first page
+    pageContent: content,
+    
+  }
+];
+const newUpdated = {
+  ...updated, // Copy all the properties of the original state object
+  pages: newPages
+};
+setUpdated(newUpdated);
+
+  // setUpdated({...updated,[...pages,page.C]})
+  console.log("werthj",arr ,updated)
+}, [content])
+
+const requestOptions = {
+  method: 'PUT',
+  headers: { 
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + Cookies.get("token") 
+  },
+  body: JSON.stringify(updated)
+};
 const settings = {
     dots: true,
     infinite: true,
@@ -34,8 +106,6 @@ const settings = {
     autoplay: false,
     // autoplaySpeed: 2000
   };
-  const [editablePageIndex, setEditablePageIndex] = useState(null);
-  const [content, setContent] = useState(null);
 
   const handlePageEdit = (objectIndex, pageIndex) => {
     console.log("abdullah",objectIndex, pageIndex,editablePageIndex)
@@ -52,50 +122,7 @@ const settings = {
     // TODO: save the updated content to the pages array of the object at objectIndex
     setEditablePageIndex(null);
   };
-//   return (
-//     // <div>
-//     //   <h1>Dynamic Component</h1>
-//     //   <p>Dynamic ID: {id}</p>
-//     //   {dataas && <p>Message from Component A: {dataas.message}</p>}
-//     // </div>
-//     <React.Fragment>
-//            <div className="container">
-//              <Header   show={show} setShow={setShow}/>
-//              <React.Fragment>
-//                   <div className='container-sop'>
-//                  <h3>SOPs</h3>
-               
-//                  <div className='sop-container-row'>
-//                       <div>
-//                            {arr.map((item, index) => (
-//     //    <Slider {...settings}>   
-//        <div key={index}>
-//         <h2>{item.title}</h2>
-//         <p>{item.description}</p>
-//         {/* <Slider {...settings}> */}
-//              {item.steps.map((innerItem, innerIndex) => (
-//          <div className="indi" key={innerIndex}>
-//          <h3>
-//            {innerItem.pageNumber} - {innerItem.pageTitle}
-//          </h3>
-//         {/* // <div     dangerouslySetInnerHTML={{ __html: innerItem.pageContent }}>{innerItem.pageContent}</div> */}
-//          {/* <Editor/> */}
-//        </div>
-//       ))}
-//     {/* </Slider> */}
-//         {/* {item.steps.map(() => (
-       
-//         ))} */}
-//       </div>
-//     //   </Slider>
-//     ))}
-//                       </div>
-//                       </div>
-//                  </div>
-//         </React.Fragment>
-//            </div> 
-//     </React.Fragment>
-//   );
+
 return (
     <React.Fragment>
 <div className="container">
@@ -112,7 +139,7 @@ return (
        {object.pages !== [] ? 
         // <Slider settings={settings}>
         <>  {object.steps.map((page, pageIndex) => (
-            <div key={pageIndex} className="sig">
+           <div key={pageIndex} className="sig">
               {editablePageIndex?.objectIndex === objectIndex &&
               editablePageIndex?.pageIndex === pageIndex ? (
              <>
@@ -122,6 +149,9 @@ return (
                 //    handlePageSave(objectIndex, pageIndex, content)
                 //  }
                />
+                  <button onClick={() => fetchData(requestOptions,arr[0].id)}>
+                    update
+                  </button>
              </>  
                 
               ) : (
@@ -130,9 +160,9 @@ return (
                   <h3>{page.pageTitle}</h3>
                   <HtmlViewer html={page.pageContent} />
                   {/* {page.pageContent} */}
-                  {/* <button onClick={() => handlePageEdit(objectIndex, pageIndex)}>
+                  <button onClick={() => handlePageEdit(objectIndex, pageIndex)}>
                     Edit
-                  </button> */}
+                  </button>
                 </>
               )}
             </div>

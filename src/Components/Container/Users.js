@@ -15,11 +15,6 @@ export const fetchData = (config) => {
       dispatch(fetchUsersRequest());
       fetch('https://phplaravel-391561-3408566.cloudwaysapps.com/api/employees',config) // Replace with your API endpoint
         .then(response => {
-        //   if (!response.ok) {
-        //     throw new Error('Failed to fetch data');
-        //   }
-        //   return Promise.all([response.json()]);
-  
           return response.json();
         })
         .then((response) => {

@@ -60,7 +60,7 @@
                  div{
                     display: flex;
                     flex-direction: column;
-                    width: 46%;
+                    width: 100%;
                     margin-bottom: 20px;
                     input{
                         // width: 90%;
@@ -233,13 +233,31 @@
 .sigma{
     display: flex;
     width: 100%;
+
     .sig{
         flex: 1 1;
+        padding: 10px;
         margin: 50px;
         border: 1px solid;
         border-radius: 16px;
-        ul{
+        div{ 
+
+            img{
+                
+            width: 300px;
+            height: 300px;
+            }}
+        ol{
             list-style-type: none;
+            li{
+                text-align: initial;
+            }
+        }
+        .sd{
+            list-style-type: disc;
+            li{
+                text-align: initial;
+            }
         }
     }
 

@@ -61,7 +61,7 @@
 .container .container-sop .form .sikna div {
   display: flex;
   flex-direction: column;
-  width: 46%;
+  width: 100%;
   margin-bottom: 20px;
 }
 .container .container-sop .sop-container-row {
@@ -222,10 +222,24 @@
 }
 .sigma .sig {
   flex: 1 1;
+  padding: 10px;
   margin: 50px;
   border: 1px solid;
   border-radius: 16px;
 }
-.sigma .sig ul {
+.sigma .sig div img {
+  width: 300px;
+  height: 300px;
+}
+.sigma .sig ol {
   list-style-type: none;
+}
+.sigma .sig ol li {
+  text-align: initial;
+}
+.sigma .sig .sd {
+  list-style-type: disc;
+}
+.sigma .sig .sd li {
+  text-align: initial;
 }/*# sourceMappingURL=styles.css.map */

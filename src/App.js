@@ -16,6 +16,7 @@ import Signup from "./Components/Signup/Signup";
 import ShowSop from "./Components/Container/ShowSop";
 import DynamicComponent from "./Components/Container/ShowSop";
 import Users from "./Components/Container/Users";
+import EditSop from "./Components/Container/EditSop";
 
 
 function App() {
@@ -91,7 +92,14 @@ const isLoggedIn = Boolean(Cookies.get("token"));
            }
          />
            {/* <Route path="/dynamic/:id" component={<ShowSop/>} /> */}
-           <Route path="/dynamic/:id" element={<DynamicComponent show={show} setShow={setShow} />} />
+           <Route path="/dynamic/:id" element={<> <React.Fragment>
+                 <SideBar show={show} setShow={setShow} />
+               </React.Fragment>
+           <DynamicComponent show={show} setShow={setShow} /></>} />
+           <Route path="/editsop/:id" element={<> <React.Fragment>
+                 <SideBar show={show} setShow={setShow} />
+               </React.Fragment>
+           <EditSop show={show} setShow={setShow} /></>} />
            <Route path="/users" element={<Users show={show} setShow={setShow} />} />
         </Route>  }
                    {/* <Route path="/addsops" element={<AddSops />} /> */}
