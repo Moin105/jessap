@@ -232,7 +232,9 @@
 
 .sigma{
     display: flex;
-    width: 100%;
+    /* width: 100%; */
+    flex-wrap: wrap;
+    flex-direction: column;
 
     .sig{
         flex: 1 1;

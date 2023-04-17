@@ -8,33 +8,75 @@ import React, { useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { useState } from "react";
 import Slider from 'react-slick';
+import { useNavigate } from "react-router-dom";
 import ReactQuill from 'react-quill';
 import HtmlViewer from "./HtmlViewer";
 import Cookies from "js-cookie";
 import Editor from "./Editor";
 import 'react-quill/dist/quill.snow.css';
 
-export const fetchData = (config,sopid) => {
-  // return (dispatch) => {
-    // dispatch(fetchUsersRequest());
-    console.log("config")
-    fetch('https://phplaravel-391561-3408566.cloudwaysapps.com/api/UpdateSOP/' + sopid ,config) // Replace with your API endpoint
-      .then(response => {
-        return response.json();
-      })
-      .then((response) => {
-        // Use parsed JSON data and text data as needed
-        console.log('JSON data:', response);
-      //   console.log('Text data:', text);
-        // dispatch(fetchUsersSuccess(response)); // Dispatch success action with fetched data
-      })
-      .catch(error => {
-        // dispatch(fetchUsersFailure(error.message));
-      });
-  // };
+// Function to handle route change
+
+const checkForSuccessfull = (str) => {
+  return str.includes('successfully');
 };
+// export const fetchData = (config,sopid) => {
+//   // return (dispatch) => {
+//     // dispatch(fetchUsersRequest());
+//     console.log("config")
+//     fetch('https://phplaravel-391561-3408566.cloudwaysapps.com/api/UpdateSOP/' + sopid ,config) // Replace with your API endpoint
+//       .then(response => {
+//         return response.json();
+//       })
+//       .then((response) => {
+//         // Use parsed JSON data and text data as needed
+//         console.log('JSON data:', response);
+//         const isPresent = checkForSuccessfull(res.message);
+//         //   "Company Registered successfully."
+//           console.log(isPresent); 
+//           if (isPresent){
+//             handleRouteChange('/home')
+//           }
+//       //   console.log('Text data:', text);
+//         // dispatch(fetchUsersSuccess(response)); // Dispatch success action with fetched data
+//       })
+//       .catch(error => {
+//         // dispatch(fetchUsersFailure(error.message));
+//       });
+//   // };
+// };
 
 function DynamicComponent({show,setShow}) {
+  const handleRouteChange = (route) => {
+    // Use the navigate() function to navigate to the specified route
+    navigate(route);
+  };
+  const fetchData = (config,sopid) => {
+    // return (dispatch) => {
+      // dispatch(fetchUsersRequest());
+      console.log("config")
+      fetch('https://phplaravel-391561-3408566.cloudwaysapps.com/api/UpdateSOP/' + sopid ,config) // Replace with your API endpoint
+        .then(response => {
+          return response.json();
+        })
+        .then((response) => {
+          // Use parsed JSON data and text data as needed
+          console.log('JSON data:', response);
+          const isPresent = checkForSuccessfull(response.message);
+          //   "Company Registered successfully."
+            console.log(isPresent); 
+            if (isPresent){
+              handleRouteChange('/home')
+            }
+        //   console.log('Text data:', text);
+          // dispatch(fetchUsersSuccess(response)); // Dispatch success action with fetched data
+        })
+        .catch(error => {
+          // dispatch(fetchUsersFailure(error.message));
+        });
+    // };
+  };
+  const navigate = useNavigate();
   const { id } = useParams(); // Extract the 'id' route parameter from the URL
   const location = useLocation();
   const dataas = location.state?.dataas; // Extract data from location.state
