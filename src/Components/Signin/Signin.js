@@ -157,7 +157,7 @@ const Signin = ({onLogin}) => {
             <button style={{margin:"10px 0px"}} type="submit" disabled={isSubmitting}>
               {isSubmitting ? 'Logging in...' : 'Submit'}
             </button>
-            <span>Dont have ana account?<Link to="/signup"><p>Sign Up</p></Link></span>
+            <span>Dont have an account?<Link to="/signup"><p>Sign Up</p></Link></span>
           </Form>
         )}
       </Formik>

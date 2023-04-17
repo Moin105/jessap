@@ -61,6 +61,7 @@ const HtmlViewer = ({ html }) => {
             .replace(/<li>(.*?)<\/li>/gs, "<li>$1</li>")
             .replace("<ul>", "<ol class='sd'>")
             .replace("</ul>", "</ol>");
+            
           return `<div class="list-wrapper">${listItems}</div>`;
         } else {
           // Handle ordered list
