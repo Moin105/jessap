@@ -18,6 +18,10 @@ const AuthenticatedRoute = ({ isAuthenticated }) => {
   if(token !== "" && path== "/" ){
     handleRouteChange('/home')
   }
+  if(token == "" && path== "/" ){
+    handleRouteChange('/login')
+  }
+
   }, [])
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
