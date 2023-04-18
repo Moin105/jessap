@@ -8,7 +8,7 @@ import Signin from "./Components/Signin/Signin";
 import { store } from "./app/store";
 import { Counter } from './features/counter/Counter';
 import './App.css';
-import { Route,Redirect,Routes ,useNavigate,Navigate} from "react-router-dom";
+import { Route,Redirect,Routes ,useNavigate,Navigate,useLocation} from "react-router-dom";
 import { useSelector } from "react-redux";
 import AddSop from "./Components/Container/AddSop";
 import SopAdd from "./Components/Container/SopAdd";
@@ -32,6 +32,8 @@ function App() {
     console.log(status)
     setIsAuthenticated(status);
   };
+  const location = useLocation();
+  const path = location.pathname;
   const navigate = useNavigate();
   // Function to handle route change
   const handleRouteChange = (route) => {
@@ -41,9 +43,25 @@ function App() {
 useEffect(() => {
 
 console.log(token)
-  if(token){
-    setIsAuthenticated(true)
-  }else{
+if(token){
+  setIsAuthenticated(true)
+}else
+if(token == undefined && path === (undefined || "/")){
+  console.log("yes")
+  handleRouteChange("/login")
+}
+// else 
+// if(token !== "" && path== "/signup"){
+//   console.log("yes1")
+//   handleRouteChange('/home')
+// }else
+// if(token !== "" &&  path == "/login"  ){
+//   console.log("yes2")
+//   handleRouteChange('/home')
+// }
+
+  
+  else{
     setIsAuthenticated(false)
   }
 }, [])
@@ -59,11 +77,11 @@ const isLoggedIn = Boolean(Cookies.get("token"));
         {/* {isLoggedIn ? ( */}
    {  !isAuthenticated ? <>  <Route
           path="/login"
-          element={!isAuthenticated ? <Signin onLogin={handleAuthentication} /> : <Navigate to="/home" replace />}
+          element={<Signin onLogin={handleAuthentication} /> }
         />
         <Route
           path="/signup"
-          element={!isAuthenticated ? <Signup onSignup={handleAuthentication} /> : <Navigate to="/home" replace />}
+          element={ <Signup onSignup={handleAuthentication} /> }
         /> </>:
         <Route path="/" element={<AuthenticatedRoute isAuthenticated={isAuthenticated} />}>
         {/* <Route to="/" element={<Signin/>}/> */}
@@ -101,8 +119,10 @@ const isLoggedIn = Boolean(Cookies.get("token"));
                  <SideBar show={show} setShow={setShow} />
                </React.Fragment>
                <React.Fragment>
+               <div className="container">
                 <Header/>
                  <AddEmployee show={show} setShow={setShow}/>
+                </div> 
                </React.Fragment>
              </>
            }

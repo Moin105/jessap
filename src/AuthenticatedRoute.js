@@ -14,13 +14,21 @@ const AuthenticatedRoute = ({ isAuthenticated }) => {
   const location = useLocation();
   const path = location.pathname;
   useEffect(() => {
-    console.log("sakinaka",path)
+    console.log("sakinaka",location.pathname)
+    console.log("sakinaka",token)
   if(token !== "" && path== "/" ){
     handleRouteChange('/home')
   }
-  if(token == "" && path== "/" ){
-    handleRouteChange('/login')
+  if(token !== "" && path== "/signup"){
+    handleRouteChange('/home')
   }
+  if(token !== "" &&  path == "/login"  ){
+    handleRouteChange('/home')
+  }
+
+  // if(token  || path == undefined ){
+  //   handleRouteChange('/login')
+  // }
 
   }, [])
   if (!isAuthenticated) {

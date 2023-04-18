@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { loginSuccess } from "../../features/counter/authActions";
 import { login } from "../Signin/Signin";
+import { Link } from "react-router-dom";
 import { signupSuccess } from "../../features/counter/authActions";
 // import { registerUser } from '../features/auth/authActions'
 // import { registerUser } from "../../features/auth/authAction";
@@ -163,21 +164,21 @@ const Signup = ({isAuthenticated}) => {
         {({ isSubmitting }) => (
           <Form> 
             <div className="dispo">
-            <FormControl>
+            <FormControl className="group">
                 <FormLabel htmlFor="first_name">First Name</FormLabel>
                 <Field as={Input} type="first_name" name="first_name" id="first_name" />
               </FormControl>
-              <FormControl>
+              <FormControl className="group"> 
                 <FormLabel htmlFor="sur_name">Sur Name</FormLabel>
                 <Field as={Input} type="sur_name" name="sur_name" id="sur_name" />
               </FormControl>     
             </div>
             <div className="dispo">
-            <FormControl>
+            <FormControl className="group">
                 <FormLabel htmlFor="email">Email</FormLabel>
                 <Field as={Input} type="email" name="email" id="email" />
-              </FormControl>
-              <FormControl mt={4}>
+              </FormControl >
+              <FormControl  className="group"mt={4}>
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <Field
                   as={Input}
@@ -189,7 +190,7 @@ const Signup = ({isAuthenticated}) => {
             </div>
             <div className="dispo">
                  
-              <FormControl mt={4}>
+              <FormControl className="group" mt={4}>
                 <FormLabel htmlFor="c_password">Confirm Password</FormLabel>
                 <Field
                   as={Input}
@@ -198,7 +199,7 @@ const Signup = ({isAuthenticated}) => {
                   id="c_password"
                 />
               </FormControl>
-              <FormControl>
+              <FormControl className="group">
                 <FormLabel htmlFor="company">company</FormLabel>
                 <Field as={Input} type="company" name="company" id="company" />
               </FormControl>
@@ -225,6 +226,7 @@ const Signup = ({isAuthenticated}) => {
           </Form>
         )}
       </Formik>
+      <span>Already have an account?<Link to="/login"><p>Sign In</p></Link></span>
     </div>
     </div>
   );

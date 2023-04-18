@@ -67,7 +67,7 @@ const HtmlViewer = ({ html }) => {
           // Handle ordered list
           const listItems = match.replace(
             /<li>(.*?)<\/li>/gs,
-            '<li><input type="checkbox" onclick="return false;"/>$1</li>'
+            '<li><input type="checkbox" />$1</li>'
           );
           return `<div class="list-wrapper">${listItems}</div>`;
         }

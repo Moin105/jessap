@@ -51,14 +51,14 @@ const Signin = ({onLogin}) => {
 
   const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);
-//  useEffect(() => {
-//    console.log("wertyj",auth)
-//    if(auth.token == null){
-//     handleRouteChange('/')
-//   }else{
-//     handleRouteChange('/home')
-//   }
-//  }, [])
+ useEffect(() => {
+   console.log("wertyj",auth)
+   if(   Cookies.get('token') == (null ||""||undefined)){
+    handleRouteChange('/login')
+  }else{
+    handleRouteChange('/home')
+  }
+ }, [])
  
   const handleLogin = async (values, { setSubmitting }) => {
     try {
@@ -80,6 +80,7 @@ const Signin = ({onLogin}) => {
     
       // Reset form and set submitting to false
       setSubmitting(false);
+      handleRouteChange('/home')
     } catch (error) {
       // Handle login error
       setSubmitting(false);
@@ -131,11 +132,11 @@ const Signin = ({onLogin}) => {
       >
         {({ isSubmitting }) => (
           <Form>
-                 <FormControl>
+                 <FormControl className="group">
                 <FormLabel htmlFor="email">Email</FormLabel>
                 <Field as={Input} type="email" name="email" id="email" />
               </FormControl>
-              <FormControl mt={4}>
+              <FormControl mt={4} className="group">
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <Field
                   as={Input}

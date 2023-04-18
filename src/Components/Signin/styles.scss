@@ -26,7 +26,10 @@ label{
     padding: 10px;
 
 }
-
+.group{
+    display: flex;
+    flex-direction: column;
+}
 button{
     width: 100%;
     font-size: 24px;
