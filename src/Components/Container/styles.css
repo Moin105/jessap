@@ -229,6 +229,7 @@
   padding: 10px;
   margin: 50px;
   border: 1px solid;
+  text-align: initial;
   border-radius: 16px;
 }
 .sigma .sig div img {
