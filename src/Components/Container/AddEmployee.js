@@ -14,29 +14,28 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from "react";
 // import { signupSuccess } from '../redux/actions/authActions';
 // import api from '../../api/api'
-export const addEmployee = (employee) => {
-  console.log("shaam",employee)
-    return (dispatch) => {
-   try{   dispatch(addEmployeeRequest());
-      fetch("https://phplaravel-391561-3408566.cloudwaysapps.com/api/addEmployee", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${Cookies.get("token")}`,
-        },
-        body: JSON.stringify(employee),
+export const addEmploye =async (employee, token) => {
+  return (dispatch) => {
+    // dispatch(addEmployeeRequest());
+    console.log("response1",employee)
+    fetch("https://phplaravel-391561-3408566.cloudwaysapps.com/api/addEmployee", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(employee),
+    })
+      .then((response) => {response.json();console.log("response")})
+      .then((data) => {
+        console.log("data")
+        dispatch(addEmployeeSuccess(data));
       })
-        .then((response) => response.json())
-        .then((data) => {
-          dispatch(addEmployeeSuccess(data));
-        })
-        .catch((error) => {
-          dispatch(addEmployeeFailure(error.message));
-        });}catch{
-          
-        }
-    };
+      .catch((error) => {
+        dispatch(addEmployeeFailure(error.message));
+      });
   };
+};
 const AddEmployee = ({isAuthenticated}) => {
   const navigate = useNavigate();
 
@@ -93,11 +92,32 @@ const AddEmployee = ({isAuthenticated}) => {
   //     // setSubmitting(false);
   //   }
   // };
-  const handleSubmit= async (values, { setSubmitting }) => {
-    try {
-      const response = await addEmployee(values);
+  const handleSubmit= async (values,) => {
+    
+      console.log(values)
+      // return (dispatch) => {
+        dispatch(addEmployeeRequest());
+        console.log("response1",values)
+        fetch("https://phplaravel-391561-3408566.cloudwaysapps.com/api/addEmployee", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${Cookies.get("token")}`,
+          },
+          body: JSON.stringify(values),
+        })
+          .then((response) => {response.json();console.log("response")})
+          .then((data) => {
+            console.log("data")
+            dispatch(addEmployeeSuccess(data));
+          })
+          .catch((error) => {
+            dispatch(addEmployeeFailure(error.message));
+          });
+      // };
+      // const response = await addEmploye(values,Cookies.get("token"));
       // const { token } = response.data;
-  console.log("response",response)
+  // console.log("response",response)
       // Dispatch loginSuccess action with token
       // dispatch(addEmployeeSuccess(token));
       //       console.log("token",token)
@@ -113,17 +133,14 @@ const AddEmployee = ({isAuthenticated}) => {
     
       // // Reset form and set submitting to false
       // setSubmitting(false);
-    } catch (error) {
-      // Handle login error
-      setSubmitting(false);
-    }
+
   };
 
   return (
     <div className="sign-up">
    <div className="contaiers">
       <Formik
-        initialValues={{ email: '', password: '',first_name:'', sur_name:'',role: 'employee'}}
+        initialValues={{ first_name:'',sur_name:'',email: '', password: '', role: 'employee'}}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (

@@ -18,6 +18,7 @@ import AddEmployee from "./Components/Container/AddEmployee";
 import DynamicComponent from "./Components/Container/ShowSop";
 import Users from "./Components/Container/Users";
 import EditSop from "./Components/Container/EditSop";
+import Header from "./Components/Header";
 
 
 function App() {
@@ -100,6 +101,7 @@ const isLoggedIn = Boolean(Cookies.get("token"));
                  <SideBar show={show} setShow={setShow} />
                </React.Fragment>
                <React.Fragment>
+                <Header/>
                  <AddEmployee show={show} setShow={setShow}/>
                </React.Fragment>
              </>

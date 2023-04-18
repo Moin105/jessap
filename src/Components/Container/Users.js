@@ -10,6 +10,7 @@ import { fetchUsersRequest,fetchUsersFailure,fetchUsersSuccess } from "../../fea
 import { useDispatch,useSelector } from "react-redux";
 import "./styles.css";
 import UserCard from "./UserCard";
+import SideBar from "../SideBar";
 export const fetchData = (config) => {
     return (dispatch) => {
       dispatch(fetchUsersRequest());
@@ -44,6 +45,7 @@ function Users({show,setShow}) {
     }, [])
   return (
     <React.Fragment>
+     <SideBar show={show} setShow={setShow}/> 
       <div className="container">
         <Header   show={show} setShow={setShow}/>
         <React.Fragment>
