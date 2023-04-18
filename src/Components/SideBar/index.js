@@ -26,10 +26,10 @@ function SideBar({ show, setShow }) {
               <img src={logo} />
             </figure>
             <div className="btn-container">
-              <Tab name="SOPs" icon={setting} />
+            <Link to='/home'> <Tab name="SOPs" icon={setting} /></Link>
              <Link to='/users'> <Tab name="User" icon={user} /></Link>
               <Tab name="Support" icon={whatsapp} />
-              <Tab name="Add employees" icon={user} />
+              <Link to="/addemployee"><Tab name="Add employees" icon={user} /></Link>
               <Tab name="Assign SOP" icon={user} />
                  
                 

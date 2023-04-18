@@ -14,14 +14,15 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from "react";
 // import { signupSuccess } from '../redux/actions/authActions';
 // import api from '../../api/api'
-export const addEmployee = (employee, token) => {
+export const addEmployee = (employee) => {
+  console.log("shaam",employee)
     return (dispatch) => {
-      dispatch(addEmployeeRequest());
-      fetch("https://your-api-url.com/employees", {
+   try{   dispatch(addEmployeeRequest());
+      fetch("https://phplaravel-391561-3408566.cloudwaysapps.com/api/addEmployee", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${Cookies.get("token")}`,
         },
         body: JSON.stringify(employee),
       })
@@ -31,7 +32,9 @@ export const addEmployee = (employee, token) => {
         })
         .catch((error) => {
           dispatch(addEmployeeFailure(error.message));
-        });
+        });}catch{
+          
+        }
     };
   };
 const AddEmployee = ({isAuthenticated}) => {
@@ -47,45 +50,72 @@ const AddEmployee = ({isAuthenticated}) => {
   const auth = useSelector(state => state.auth);
 
  
-  const handleLogin = async (values, { setSubmitting }) => {
-    try {
-      const response = await addEmployee(values,token);
-    //   const {password , email} = values;
-        // console.log(password ,email )
-      dispatch(addEmployeeSuccess());
-      const checkForSuccessfull = (str) => {
-        return str.includes('successfull');
-      };
+  // const handleLogin = async (values) => {
+  //   try {
+  //     const response = await addEmployee(values);
+  //   //   const {password , email} = values;
+  //       // console.log(password ,email )
+  //     dispatch(addEmployeeSuccess());
+  //     const checkForSuccessfull = (str) => {
+  //       return str.includes('successfull');
+  //     };
       
-    //   const inputString = 'The operation was successfull!';
-      const isPresent = checkForSuccessfull(response.message);
-    //   "Company Registered successfully."
-      console.log(isPresent); 
-    //   if(isPresent){
-    //     try {
-    //         const response = await login({email,password});
-    //         const { token } = response.data;
+  //   //   const inputString = 'The operation was successfull!';
+  //     const isPresent = checkForSuccessfull(response.message);
+  //     // setSubmitting(false);
+  //   //   "Company Registered successfully."
+  //     console.log(isPresent); 
+  //   //   if(isPresent){
+  //   //     try {
+  //   //         const response = await login({email,password});
+  //   //         const { token } = response.data;
       
-    //         // Dispatch loginSuccess action with token
-    //         dispatch(loginSuccess(token));
-    //               console.log("token",token)
-    //         if(token !== ""){
-    //           Cookies.set('token', token);
+  //   //         // Dispatch loginSuccess action with token
+  //   //         dispatch(loginSuccess(token));
+  //   //               console.log("token",token)
+  //   //         if(token !== ""){
+  //   //           Cookies.set('token', token);
       
-    //           handleRouteChange('/home')
-    //           // history.push('route');
-    //         }
-    //         // Handle successful login, e.g., redirect to dashboard
+  //   //           handleRouteChange('/home')
+  //   //           // history.push('route');
+  //   //         }
+  //   //         // Handle successful login, e.g., redirect to dashboard
           
-    //         // Reset form and set submitting to false
-    //         setSubmitting(false);
-    //       } catch (error) {
-    //         // Handle login error
-    //         setSubmitting(false);
-    //       }
-    //   }
+  //   //         // Reset form and set submitting to false
+  //   //         setSubmitting(false);
+  //   //       } catch (error) {
+  //   //         // Handle login error
+  //   //         setSubmitting(false);
+  //   //       }
+  //   //   }
  
+  //   } catch (error) {
+  //     // setSubmitting(false);
+  //   }
+  // };
+  const handleSubmit= async (values, { setSubmitting }) => {
+    try {
+      const response = await addEmployee(values);
+      // const { token } = response.data;
+  console.log("response",response)
+      // Dispatch loginSuccess action with token
+      // dispatch(addEmployeeSuccess(token));
+      //       console.log("token",token)
+      // if(token !== ""){
+      //   Cookies.set('token', token);
+      //   console.log("marijuana",onLogin)
+      //   onLogin(true)
+      //   // isAuthenticated(true)
+      //   // handleRouteChange('/home')
+      //   // history.push('route');
+      // }
+      // // Handle successful login, e.g., redirect to dashboard
+    
+      // // Reset form and set submitting to false
+      // setSubmitting(false);
     } catch (error) {
+      // Handle login error
+      setSubmitting(false);
     }
   };
 
@@ -94,7 +124,7 @@ const AddEmployee = ({isAuthenticated}) => {
    <div className="contaiers">
       <Formik
         initialValues={{ email: '', password: '',first_name:'', sur_name:'',role: 'employee'}}
-        onSubmit={handleLogin}
+        onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
           <Form> 
@@ -123,7 +153,7 @@ const AddEmployee = ({isAuthenticated}) => {
                 />
               </FormControl>
             </div>
-            <button style={{margin:"10px 0px"}} type="submit" disabled={isSubmitting}>
+            <button  style={{margin:"10px 0px"}} type="submit" disabled={isSubmitting}>
               {isSubmitting ? 'Logging in...' : 'Submit'}
             </button>
           </Form>

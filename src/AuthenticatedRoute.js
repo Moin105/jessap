@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { Outlet, Navigate } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, Navigate ,useSearchParams } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
 const AuthenticatedRoute = ({ isAuthenticated }) => {
   const navigate = useNavigate();
@@ -10,8 +10,12 @@ const AuthenticatedRoute = ({ isAuthenticated }) => {
     navigate(route);
   };
   const token = Cookies.get("token")
+  // const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const path = location.pathname;
   useEffect(() => {
-  if(token !== ""){
+    console.log("sakinaka",path)
+  if(token !== "" && path== "/" ){
     handleRouteChange('/home')
   }
   }, [])

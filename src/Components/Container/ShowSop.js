@@ -201,7 +201,6 @@ return (
                     <p>{editablePageIndex?.objectIndex}</p>
                   <h3>{page.pageTitle}</h3>
                   <HtmlViewer html={page.pageContent} />
-                  {/* {page.pageContent} */}
                   <button onClick={() => handlePageEdit(objectIndex, pageIndex)}>
                     Edit
                   </button>

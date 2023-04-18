@@ -23,14 +23,14 @@ function Rowsop({icon,title,description,data}) {
   };
   return (
     <React.Fragment>
-      <div className="row" >
+      <div  className="row" onClick={()=>{handleClick(id)}} >
         <div className="box">
             <div className="left">
    <div className="icon-container">
             <img src={icon} />
           </div>
           <div className="detail-heading">
-            <h5 onClick={()=>{handleClick(id)}}>{title}</h5>
+            <h5 >{title}</h5>
             <p>{description}</p>
           </div>
             </div>

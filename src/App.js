@@ -14,6 +14,7 @@ import AddSop from "./Components/Container/AddSop";
 import SopAdd from "./Components/Container/SopAdd";
 import Signup from "./Components/Signup/Signup";
 import ShowSop from "./Components/Container/ShowSop";
+import AddEmployee from "./Components/Container/AddEmployee";
 import DynamicComponent from "./Components/Container/ShowSop";
 import Users from "./Components/Container/Users";
 import EditSop from "./Components/Container/EditSop";
@@ -87,6 +88,19 @@ const isLoggedIn = Boolean(Cookies.get("token"));
                </React.Fragment>
                <React.Fragment>
                  <SopAdd show={show} setShow={setShow} />
+               </React.Fragment>
+             </>
+           }
+         />
+                    <Route
+           path="/addemployee"
+           element={
+             <>
+               <React.Fragment>
+                 <SideBar show={show} setShow={setShow} />
+               </React.Fragment>
+               <React.Fragment>
+                 <AddEmployee show={show} setShow={setShow}/>
                </React.Fragment>
              </>
            }

@@ -122,6 +122,7 @@
 }
 .container .container-sop .card-sop .row {
   display: flex;
+  cursor: pointer;
   padding: 10px 0px;
   width: 100%;
   align-items: center;
