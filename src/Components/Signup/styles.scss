@@ -46,6 +46,12 @@ button{
     font-family: "SF Pro Display";
     font-weight: 500;
 }
+.sadie{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 85vh;
+}
 @media only screen and (max-width: 900px) {
   .dispo{
     flex-direction: column;

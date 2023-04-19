@@ -23,6 +23,8 @@
 }
 .user-card .user-img figure img {
   width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
   height: 100%;
 }
 .user-card .user-data {
@@ -33,11 +35,14 @@
 }
 .user-card .user-data h4 {
   font-size: 18px;
+  color: #848489;
   font-family: "SF Pro Display";
   margin-bottom: 15px;
 }
-.user-card .user-data P {
+.user-card .user-data p {
+  color: #848489;
   font-size: 16px;
+  margin-top: 0;
   font-family: "SF Pro Display";
 }
 .user-card .user-data .user-sops {

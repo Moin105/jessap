@@ -5,20 +5,51 @@ import setting from "../../Images/tabsetting.png";
 import user from "../../Images/user.png";
 import whatsapp from "../../Images/whatsapp.png";
 import './styles.css'
+import Cookies from 'js-cookie';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { LOGOUT } from "../../features/counter/authReducer";
+import { logout } from "../../features/counter/authActions";
 // import { showNav, hideNav } from "../../Actions/action";
 // import { connect } from "react-redux";
 
 function SideBar({ show, setShow }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // Function to handle route change
+  const handleRouteChange = (route) => {
+    // Use the navigate() function to navigate to the specified route
+    navigate(route);
+  };
+  const auth =  useSelector(state => state.auth)
   // setShow(false)
   useEffect(() => {
     setShow(false)
   }, [])
+  const logouts =()=>{
+   console.log("tere",auth)
+   dispatch(logout())
+   Cookies.remove("token");
+   window.location.reload();
+  }
   
   useEffect(() => {
     console.log("moeeen", show);
   }, [show]);
 
+  useEffect(() => {
+    console.log("siri2",auth)
+ if (auth.isAuthenticated == false ){
+  // handleRouteChange("/login")
+  navigate('/login')
+  console.log("siri")
+ }else{
+  console.log("siri3")
+ }
+  }, [auth])
+  
   const navHandle = () => {
     setShow(!show);
   };
@@ -35,8 +66,8 @@ function SideBar({ show, setShow }) {
              <Link to='/users'> <Tab name="USERS" icon={user} /></Link>
               <Tab name="Support" icon={whatsapp} />
               <Link to="/addemployee"><Tab name="Add employees" icon={user} /></Link>
-              <Tab name="Assign SOP" icon={user} />
-                 
+             <Link to="/assignsop"><Tab name="Assign SOP" icon={user} /></Link>
+             <button onClick={logouts} >logout</button>
                 
             </div>
           </div>
@@ -54,7 +85,8 @@ function SideBar({ show, setShow }) {
              <Link to='/users'> <Tab name="USERS" icon={user} /></Link>
               <Tab name="Support" icon={whatsapp} />
               <Link to="/addemployee"><Tab name="Add employees" icon={user} /></Link>
-              <Tab name="Assign SOP" icon={user} />
+              <Link to="/assignsop"><Tab name="Assign SOP" icon={user} /></Link>
+              <button onClick={logouts} >logout</button>
                   </div>
                 </div>
               </div>
@@ -69,7 +101,8 @@ function SideBar({ show, setShow }) {
              <Link to='/users'> <Tab name="USERS" icon={user} /></Link>
               <Tab name="Support" icon={whatsapp} />
               <Link to="/addemployee"><Tab name="Add employees" icon={user} /></Link>
-              <Tab name="Assign SOP" icon={user} />
+              <Link to="/assignsop"><Tab name="Assign SOP" icon={user} /></Link>
+              <button onClick={logouts} >logout</button>
                 </div>
               </div>
             </div>

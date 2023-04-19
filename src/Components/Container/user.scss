@@ -22,6 +22,7 @@
             height: 70px;
         img{
             width: 100%;
+            object-fit: contain;
             height: 100%;
         }
         }
@@ -29,15 +30,17 @@
     .user-data{
         display: flex;
         flex-direction: column;
+
         align-items: baseline;
         width: 100%;
         h4{
-            font-size: 18px;
+            font-size: 18px;color: #848489;
             font-family: 'SF Pro Display';
             margin-bottom: 15px;
         }
-        P{
+        p{color: #848489;
             font-size: 16px;
+            margin-top: 0;
             font-family: 'SF Pro Display';
         }
         .user-sops{

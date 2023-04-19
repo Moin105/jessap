@@ -19,6 +19,8 @@ import DynamicComponent from "./Components/Container/ShowSop";
 import Users from "./Components/Container/Users";
 import EditSop from "./Components/Container/EditSop";
 import Header from "./Components/Header";
+import AssignSop from "./Components/Container/AssignSop";
+import NoPage from "./Components/Container/NoPage";
 
 
 function App() {
@@ -40,9 +42,12 @@ function App() {
     // Use the navigate() function to navigate to the specified route
     navigate(route);
   };
+  const isAuthenticateds = useSelector(state => state.auth.isAuthenticated)
+
 useEffect(() => {
 
 console.log(token)
+
 if(token){
   setIsAuthenticated(true)
 }else
@@ -54,7 +59,7 @@ if(token == undefined && path === (undefined || "/")){
 // if(token !== "" && path== "/signup"){
 //   console.log("yes1")
 //   handleRouteChange('/home')
-// }else
+// }else 
 // if(token !== "" &&  path == "/login"  ){
 //   console.log("yes2")
 //   handleRouteChange('/home')
@@ -63,10 +68,20 @@ if(token == undefined && path === (undefined || "/")){
   
   else{
     setIsAuthenticated(false)
+    // handleRouteChange("/login")
   }
 }, [])
+useEffect(() => {
+  if(isAuthenticated == false && path !== ("/login" || "/signup")){
+   console.log("kanjur",path)
+   handleRouteChange("/login")
+  }else{
+    console.log("kanjur2")
+  }
+}, [isAuthenticated])
+
 // const auth = useSelector(state => state.auth);
-const isLoggedIn = Boolean(Cookies.get("token"));
+// const isLoggedIn = Boolean(Cookies.get("token"));
 
   return (
     <div className="App">
@@ -120,13 +135,15 @@ const isLoggedIn = Boolean(Cookies.get("token"));
                </React.Fragment>
                <React.Fragment>
                <div className="container">
-                <Header/>
+                <Header show={show} setShow={setShow} />
                  <AddEmployee show={show} setShow={setShow}/>
                 </div> 
                </React.Fragment>
              </>
            }
          />
+               <Route path="*" element={<NoPage/>} />
+
            {/* <Route path="/dynamic/:id" component={<ShowSop/>} /> */}
            <Route path="/dynamic/:id" element={<> <React.Fragment>
                  <SideBar show={show} setShow={setShow} />
@@ -137,6 +154,7 @@ const isLoggedIn = Boolean(Cookies.get("token"));
                </React.Fragment>
            <EditSop show={show} setShow={setShow} /></>} />
            <Route path="/users" element={<Users show={show} setShow={setShow} />} />
+           <Route path="/assignsop" element={<AssignSop show={show} setShow={setShow} />} />
         </Route>  }
                    {/* <Route path="/addsops" element={<AddSops />} /> */}
       {/* ) : ( */}

@@ -71,7 +71,9 @@
     font-size: 18px;
     font-family: 'SF Pro Display';
   }
- 
+ em{
+  font-weight: 600;
+ }
   .ql-editor ul > li {
     font-size: 18px;
     font-family: 'SF Pro Display';

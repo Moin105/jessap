@@ -1,13 +1,13 @@
 import React from 'react'
 import './user.css'
 import dots from '../../Images/dots.png'
-
+import profile from '../../Images/profile.png'
 function UserCard({name,joined_date,sops}) {
   return (
     <div className='user-card'>
         <div className='user-img'>
             <figure>
-                {/* <img/> */}
+                <img src={profile}/>
             </figure>
         <div className='user-data'>
             <h4>{name}</h4>

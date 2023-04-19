@@ -106,10 +106,10 @@ const AddEmployee = ({isAuthenticated}) => {
           },
           body: JSON.stringify(values),
         })
-          .then((response) => {response.json();console.log("response")})
-          .then((data) => {
-            console.log("data")
-            dispatch(addEmployeeSuccess(data));
+          .then((response) => {response.json();console.log("response",response)})
+          .then((response) => {
+            console.log("data",response)
+            // dispatch(addEmployeeSuccess(data));
           })
           .catch((error) => {
             dispatch(addEmployeeFailure(error.message));
@@ -137,7 +137,7 @@ const AddEmployee = ({isAuthenticated}) => {
   };
 
   return (
-    <div className="sign-up">
+    <div className="sadie">
    <div className="contaiers">
       <Formik
         initialValues={{ first_name:'',sur_name:'',email: '', password: '', role: 'employee'}}

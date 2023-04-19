@@ -66,7 +66,7 @@ function SopAdd({ show, setShow }) {
     postData({
       title: values.title,
       description: values.description,
-      pages: [{ pageTitle: "ok", pageNumber: "1", pageContent: content }],
+      pages: [{ pageTitle: values.title, pageNumber: "1", pageContent: content }],
     })
       .then((res) => {
         console.log("safweewg", res);

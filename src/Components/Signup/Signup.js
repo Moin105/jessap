@@ -4,9 +4,10 @@ import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import "./styles.css";
 import { useDispatch, useSelector } from 'react-redux'
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,useLocation} from 'react-router-dom';
 import { loginSuccess } from "../../features/counter/authActions";
 import { login } from "../Signin/Signin";
+// import firebase from '../../firebase';
 import { Link } from "react-router-dom";
 import { signupSuccess } from "../../features/counter/authActions";
 // import { registerUser } from '../features/auth/authActions'
@@ -43,12 +44,35 @@ export const signup = async (formData) => {
 const Signup = ({isAuthenticated}) => {
   const navigate = useNavigate();
 
+
+ 
+  const location = useLocation();
+  
+  // const GoogleLoginButton = () => {
+  //   return (
+   
+  //   );
+  // }
   // Function to handle route change
   const handleRouteChange = (route) => {
     // Use the navigate() function to navigate to the specified route
     navigate(route);
   };
+  
 
+  const datae = location.state.dataas.email;
+  const datap = location.state.dataas.password;
+  const datan = location.state.dataas.names;
+  const fullName = datan;
+  const nameArray = fullName.split(' ');
+  const firstName = nameArray[0]; // "Moin"
+  const lastName = nameArray[1]; // "Latif"
+  console.log(firstName); // "Moin"
+  console.log(lastName); 
+  useEffect(() => {
+console.log("sharjeela",location)
+  }, [location])
+  
   const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);
 //  useEffect(() => {
@@ -120,45 +144,10 @@ const Signup = ({isAuthenticated}) => {
 
   return (
     <div className="sign-up">
-      {/* {userInfo} */}
-{/* <>{success },</> */}
-      {/* <div className="container"> */}
-        {/* <Formik
-          initialValues={{ email: "", password: "" }}
-         onSubmit={handleLogin}
-        >
-          {({ isSubmitting }) => (
-            <Form>
-              <FormControl>
-                <FormLabel htmlFor="email">Email</FormLabel>
-                <Field as={Input} type="email" name="email" id="email" />
-              </FormControl>
-              <FormControl mt={4}>
-                <FormLabel htmlFor="password">Password</FormLabel>
-                <Field
-                  as={Input}
-                  type="password"
-                  name="password"
-                  id="password"
-                />
-              </FormControl>
-              <Button
-                mt={4}
-                colorScheme="blue"
-                type="submit"
-                onClick={handleLogin}
-              >
-                Submit
-              </Button>
-            </Form>
-          )}
-
-        </Formik> */}
-      {/* </div> */}
       <div className="contaiers">
       {/* Render login form using Formik */}
       <Formik
-        initialValues={{ email: '', password: '',first_name:'', sur_name:'',c_password:'',signup_type:'normal' ,company:''}}
+        initialValues={{ email:datae, password: datap,first_name:firstName, sur_name:lastName,c_password:datap,signup_type:'normal' ,company:''}}
         onSubmit={handleLogin}
       >
         {({ isSubmitting }) => (
@@ -205,24 +194,10 @@ const Signup = ({isAuthenticated}) => {
               </FormControl>
 
             </div>
-                {/* <FormControl className="wid">
-                <FormLabel htmlFor="signup_type">company</FormLabel>
-                <Field as={Input} type="company" name="company" id="company" />
-              </FormControl> */}
-          
-              {/* <Button
-                mt={4}
-                colorScheme="blue"
-                type="submit"
-                onClick={submitForm}
-              >
-                Submit
-              </Button> */}
-            {/* <Field type="email" name="email" placeholder="Email" />
-            <Field type="password" name="password" placeholder="Password" /> */}
             <button style={{margin:"10px 0px"}} type="submit" disabled={isSubmitting}>
               {isSubmitting ? 'Logging in...' : 'Submit'}
             </button>
+           
           </Form>
         )}
       </Formik>

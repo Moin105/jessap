@@ -96,7 +96,7 @@ function DynamicComponent({show,setShow}) {
     description:arr[0].description,
     pages:[
         {
-            pageTitle:"ok",
+            pageTitle:arr[0].title,
             sop_id:arr[0].steps[0].sop_id,
             pageNumber:"1",
             pageContent:content
@@ -112,7 +112,7 @@ useEffect(() => {
   }, 2000);
 }, [])
 useEffect(() => {
-  console.log("werthj",content,updated)
+  console.log("wanga",content,arr[0].title)
   // id:arr[0]
   console.log("werthj2",arr[0].steps[0].sop_id)
   const {pages} = updated ;

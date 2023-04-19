@@ -4,7 +4,16 @@ import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import "./styles.css";
 import { useDispatch, useSelector } from 'react-redux'
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import {auth as auther,provider} from '../../firebase';
+// import firebase from '../../firebase';
+import { signInWithPopup } from "firebase/auth";
+// import 'firebase/auth';
+// import firebase from 'firebase/app';
+// import 'firebase/auth';
+
+// const provider = new firebase.auth.GoogleAuthProvider();
+// import { useNavigate } from 'react-router-dom';
 import { loginSuccess } from "../../features/counter/authActions";
 import { signupSuccess } from "../../features/counter/authActions";
 // import { registerUser } from '../features/auth/authActions'
@@ -86,7 +95,64 @@ const Signin = ({onLogin}) => {
       setSubmitting(false);
     }
   };
+  const [userData ,setUserData]=useState({email:'',password:''})
+  const signInWithGoogle = () => {
+    // GoogleSignUp
+    signInWithPopup(auther,provider).then(async (data)=>{
+            console.log("sharjeela",data.user.providerData[0].email)
+            console.log("sharjeela",data.user.providerData[0].uid)
+            console.log("sharjeela",data.user.providerData[0].displayName)
+            setUserData({...userData,email:data.user.providerData[0].email})
+            setUserData({...userData,password:data.user.providerData[0].uid})
+            console.log("sharjeeela",userData)
+            var email = '';
+            var password = '';
+            var names = '';
+            email = data.user.providerData[0].email;
+            names = data.user.providerData[0].displayName
+            password = data.user.providerData[0].uid;
+      const response = await       fetch('https://phplaravel-391561-3408566.cloudwaysapps.com/api/GoogleSignUp', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({email,password}),
+            });
+            if (!response.ok) {
+              // Handle error response from the server
+              console.log("sharjeela",response.body)
+              const dataas = {
+                // message: 'Hello from Component A',
+                // sop:data,
+                email:email,
+                password:password,
+                names:names
+                // Add more data as needed
+              };
+              // throw new Error('Failed to login');
+              // handleRouteChange('/signup')
+              // handleRouteChange({
+              //   pathname: '/signup',
+              //  state:{userData}
+              // });
+              navigate(`/signup`, { state: { dataas } });
+            }
+        
+            // Parse the response as JSON and return it
+            const datas = await response.json();
+            console.log("sharjeela",datas)
+            return datas;
+            console.log("sharjeela",response)
+            // console.log("sharjeela",data.user)
+    })
+    // console.log("sharjeel",firebase)
+    // const provider = new auth.GoogleAuthProvider();
+    // const provider = new GoogleAuthProvider();
 
+    // console.log("sharjeela",provider)
+    // // const provider = new firebase.auth.GoogleAuthProvider();
+    // firebase.auth().signInWithPopup(provider);
+  }
   return (
     <div className="sign-up">
       {/* {userInfo} */}
@@ -162,6 +228,9 @@ const Signin = ({onLogin}) => {
           </Form>
         )}
       </Formik>
+            <button onClick={signInWithGoogle}>
+                Sign in with Google
+            </button>
     </div>
     </div>
   );
