@@ -39,16 +39,16 @@ function SideBar({ show, setShow }) {
     console.log("moeeen", show);
   }, [show]);
 
-  useEffect(() => {
-    console.log("siri2",auth)
- if (auth.isAuthenticated == false ){
-  // handleRouteChange("/login")
-  navigate('/login')
-  console.log("siri")
- }else{
-  console.log("siri3")
- }
-  }, [auth])
+//   useEffect(() => {
+//     console.log("siri2",auth)
+//  if (auth.isAuthenticated == false && path ){
+//   // handleRouteChange("/login")
+//   navigate('/login')
+//   console.log("siri")
+//  }else{
+//   console.log("siri3")
+//  }
+//   }, [auth])
   
   const navHandle = () => {
     setShow(!show);

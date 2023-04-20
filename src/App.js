@@ -31,7 +31,7 @@ function App() {
   const auth = useSelector(state => state.auth);
   const token = Cookies.get('token');
   const handleAuthentication = (status) => {
-    console.log(status)
+    // console.log(status)
     setIsAuthenticated(status);
   };
   const location = useLocation();
@@ -50,11 +50,19 @@ console.log(token)
 
 if(token){
   setIsAuthenticated(true)
-}else
-if(token == undefined && path === (undefined || "/")){
-  console.log("yes")
-  handleRouteChange("/login")
+  console.log(token)
 }
+else{
+  setIsAuthenticated(false)
+  console.log("wqf",token)
+  if(token == undefined && path !== "/login" || "/signup"){
+    handleRouteChange("/login")
+  }
+}
+// if(token == undefined && path === (undefined || "/")){
+//   console.log("yes")
+//   handleRouteChange("/login")
+// }
 // else 
 // if(token !== "" && path== "/signup"){
 //   console.log("yes1")
@@ -64,21 +72,15 @@ if(token == undefined && path === (undefined || "/")){
 //   console.log("yes2")
 //   handleRouteChange('/home')
 // }
-
-  
-  else{
-    setIsAuthenticated(false)
-    // handleRouteChange("/login")
-  }
-}, [])
-useEffect(() => {
-  if(isAuthenticated == false && path !== ("/login" || "/signup")){
-   console.log("kanjur",path)
-   handleRouteChange("/login")
-  }else{
-    console.log("kanjur2")
-  }
-}, [isAuthenticated])
+}, [token])
+// useEffect(() => {
+//   if(isAuthenticated == false && path !== ("/login" || "/signup")){
+//    console.log("kanjur",path)
+//   //  handleRouteChange("/login")
+//   }else{
+//     console.log("kanjur2")
+//   }
+// }, [isAuthenticated])
 
 // const auth = useSelector(state => state.auth);
 // const isLoggedIn = Boolean(Cookies.get("token"));

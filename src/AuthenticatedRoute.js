@@ -19,16 +19,18 @@ const AuthenticatedRoute = ({ isAuthenticated }) => {
   useEffect(() => {
 
     console.log("sakinaka",location.pathname)
-    console.log("sakinaka",isAuthenticateds)
+    // console.log("sakinaka",isAuthenticateds)
   if(token !== "" && path== "/" ){
     handleRouteChange('/home')
-  }
+  }else
   if(token !== "" && path== "/signup"){
     handleRouteChange('/home')
-  }
+  }else
   if(token !== "" &&  path == "/login"  ){
     handleRouteChange('/home')
-  }
+  }if(token !=="" && path !== "/login"||"/signup"){
+ return
+  } 
 
   // if(token  || path == undefined ){
   //   handleRouteChange('/login')

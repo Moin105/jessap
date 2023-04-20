@@ -58,19 +58,21 @@ const Signup = ({isAuthenticated}) => {
     // Use the navigate() function to navigate to the specified route
     navigate(route);
   };
-  
-
-  const datae = location.state.dataas.email;
-  const datap = location.state.dataas.password;
-  const datan = location.state.dataas.names;
-  const fullName = datan;
-  const nameArray = fullName.split(' ');
-  const firstName = nameArray[0]; // "Moin"
-  const lastName = nameArray[1]; // "Latif"
-  console.log(firstName); // "Moin"
-  console.log(lastName); 
+  var datae = location?.state?.dataas?.email;
+  var datap = location?.state?.dataas?.password;
+  var datan = location?.state?.dataas?.names;
+  var firstName = '' 
+  var lastName ='' 
   useEffect(() => {
 console.log("sharjeela",location)
+if(location.state  !== null ){
+var nameArray = ['','']
+
+
+  var fullName = datan;
+   nameArray = fullName.split(' ');
+   firstName = nameArray[0]; 
+   lastName = nameArray[1]; }
   }, [location])
   
   const dispatch = useDispatch();

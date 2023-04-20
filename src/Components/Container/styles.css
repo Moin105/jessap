@@ -88,7 +88,22 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-bottom: 20px;
+}
+.container .container-sop .form .sikna div .chakra-select__icon-wrapper {
+  display: none;
+}
+.container .container-sop .form .sikna div select {
+  width: 100%;
+  border: none;
+  font-size: 18px;
+  padding: 16.8px;
+  border-radius: 7px;
+  background: #F1F1F2;
+  color: #848489;
+  outline: none;
+}
+.container .container-sop .form .sikna div select div {
+  display: none;
 }
 .container .container-sop .sop-container-row {
   display: flex;

@@ -120,31 +120,30 @@ const Signin = ({onLogin}) => {
             });
             if (!response.ok) {
               // Handle error response from the server
-              console.log("sharjeela",response.body)
-              const dataas = {
-                // message: 'Hello from Component A',
-                // sop:data,
-                email:email,
-                password:password,
-                names:names
-                // Add more data as needed
-              };
-              // throw new Error('Failed to login');
-              // handleRouteChange('/signup')
-              // handleRouteChange({
-              //   pathname: '/signup',
-              //  state:{userData}
-              // });
-              navigate(`/signup`, { state: { dataas } });
+              console.log("sharjeela",response)
+
             }
-        
+            const dataas = {
+              // message: 'Hello from Component A',
+              // sop:data,
+              email:email,
+              password:password,
+              names:names
+              // Add more data as needed
+            };
             // Parse the response as JSON and return it
             const datas = await response.json();
             console.log("sharjeela",datas)
+            if(datas.message == 'User found'){
+              handleLogin({email,password},{})
+            }else{
+              navigate(`/signup`, { state: { dataas } });
+            }
             return datas;
-            console.log("sharjeela",response)
+            // console.log("sharjeela",response)
             // console.log("sharjeela",data.user)
     })
+
     // console.log("sharjeel",firebase)
     // const provider = new auth.GoogleAuthProvider();
     // const provider = new GoogleAuthProvider();
