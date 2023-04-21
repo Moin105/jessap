@@ -30,7 +30,7 @@ function UserCard({name,joined_date,sops}) {
         </div>
         </div>
 
-        <span className="dots"><img src={dots}/></span>  
+        {/* <span className="dots"><img src={dots}/></span>   */}
     </div>
   )
 }

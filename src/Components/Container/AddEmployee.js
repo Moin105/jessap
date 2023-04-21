@@ -92,6 +92,9 @@ const AddEmployee = ({isAuthenticated}) => {
   //     // setSubmitting(false);
   //   }
   // };
+  const checkForSuccessfull = (str) => {
+    return str.includes('Employee Added Successfully');
+  };
   const handleSubmit= async (values,) => {
     
       console.log(values)
@@ -106,10 +109,16 @@ const AddEmployee = ({isAuthenticated}) => {
           },
           body: JSON.stringify(values),
         })
-          .then((response) => {response.json();console.log("response",response)})
+          .then((response) => {return response.json();console.log("response",response)})
           .then((response) => {
             console.log("data",response)
-            // dispatch(addEmployeeSuccess(data));
+            dispatch(addEmployeeSuccess(response));
+            const isPresent = checkForSuccessfull(response.message);
+            //   "Company Registered successfully."
+            console.log(isPresent);
+            if (isPresent) {
+              handleRouteChange("/home");
+            }
           })
           .catch((error) => {
             dispatch(addEmployeeFailure(error.message));

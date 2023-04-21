@@ -185,6 +185,9 @@
   width: 70%;
   margin: 0px 0px 0px 15px;
 }
+.container .container-sop .card-sop .row .hidden-box button {
+  font-size: 14px;
+}
 .container .container-sop .card-sop .row .dots {
   width: 10px;
   margin: 0px 25px 0px 0px;
