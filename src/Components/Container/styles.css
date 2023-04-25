@@ -159,11 +159,9 @@
   display: flex;
   margin-top: 30px;
   width: 100%;
-  align-items: flex-start;
 }
 .container .container-sop .card-sop .row {
   display: flex;
-  cursor: pointer;
   padding: 10px 0px;
   width: 100%;
   align-items: center;
@@ -185,13 +183,23 @@
   width: 70%;
   margin: 0px 0px 0px 15px;
 }
+.container .container-sop .card-sop .row .hidden-box {
+  display: flex;
+  gap: 10px;
+}
 .container .container-sop .card-sop .row .hidden-box button {
+  width: 100px;
+  background-color: #FF6961;
   font-size: 14px;
+}
+.container .container-sop .card-sop .row .hidden-box .edit {
+  background-color: #A1E6E0;
 }
 .container .container-sop .card-sop .row .dots {
   width: 10px;
   margin: 0px 25px 0px 0px;
   height: 32px;
+  cursor: pointer;
 }
 .container .container-sop .card-sop .row .dots img {
   width: 100%;
@@ -220,6 +228,7 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  cursor: pointer;
   justify-content: flex-start;
 }
 .container .container-sop .card-sop .row .detail-heading h5 {
