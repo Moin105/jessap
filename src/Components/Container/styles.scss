@@ -4,6 +4,34 @@
     width: 100% !important;
     height: 100%;
     flex-direction: column;
+    .employee-data{
+        min-height: 100px;  
+        background: #F1F1F2;
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        .cross-on-hover {
+            position: relative;
+          }
+          
+          .cross-icon {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+          }
+          
+          .cross-on-hover:hover .cross-icon {
+            opacity: 1;
+          }
+    }
+    .assignsop{
+        width: max-content;
+    margin: 0 auto;
+    font-size: 16px;
+    }
     .contaiers {
         display: flex;
         flex-direction: column;
@@ -150,7 +178,7 @@
                     color: #848489;
                     font-size: 25px;
                     left: 5px;
-                    top: 10px;
+                    top: 13px;
                 }
             }
           

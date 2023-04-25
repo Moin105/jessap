@@ -94,7 +94,7 @@ function Rowsop({ icon, title, description, data }) {
         {show && (
           <div className="hidden-box">
             {/* <AiFillCloseCircle/> */}
-            <button className="edit"  onClick={() => {handleClick(id)}} >Edit</button>
+            <button className="edit"  onClick={() => {handleClick(id)}} >View</button>
             <button onClick={handleButton}>Delete SOP</button>
           </div>
         )}

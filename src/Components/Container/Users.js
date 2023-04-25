@@ -11,7 +11,7 @@ import { useDispatch,useSelector } from "react-redux";
 import "./styles.css";
 import UserCard from "./UserCard";
 import SideBar from "../SideBar";
-export const fetchData = (config) => {
+export const fetchUser = (config) => {
     return (dispatch) => {
       dispatch(fetchUsersRequest());
       fetch('https://phplaravel-391561-3408566.cloudwaysapps.com/api/employees',config) // Replace with your API endpoint
@@ -39,7 +39,7 @@ function Users({show,setShow}) {
       };
       const usersData = sop.users.employees;
     useEffect(() => {
-        dispatch(fetchData(config));
+        dispatch(fetchUser(config));
         console.log("container",usersData)
         
     }, [])

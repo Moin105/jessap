@@ -5,16 +5,46 @@ import AddSops from "./AddSops";
 import SideBar from "../SideBar";
 import Cookies from "js-cookie";
 import { Select, FormControl, FormLabel } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchData } from "./Sops";
+import { fetchUser } from "./Users";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom"; 
+import { FaTimes } from "react-icons/fa";
+const config = {
+  headers: {
+    'Authorization':`Bearer  ${Cookies.get("token")}`,
+     'Content-Type': 'application/json',
+  }
+};
 
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 function AssignSop({ show, setShow }) {
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchData(config)); 
+    dispatch(fetchUser(config));
+  }, [])
+  ////
+
+
+  /////
   // const auth = useSelector(state => state);
   const users = useSelector((state) => state.users.users.employees);
   const sops = useSelector((state) => state.sops.data);
   //   const [selectedOptions, setSelectedOptions] = useState([]);
+  
   const [selectedEmployees, setSelectedEmployees] = useState([]);
+  const [selectedSop, setSelectedSop] = useState([]);
+  const [loader, setLoader] = useState(false)
+useEffect(() => {
+    if(sops == [] && users == []){
+      setLoader(true)
+    }else{
+      setLoader(false)
+    }
+}, [sops,users])
 
+const navigate = useNavigate();
   //   const [selectedValues, setSelectedValues] = useState([]);
 
   //   const handleSelectChange = (event) => {
@@ -27,31 +57,78 @@ function AssignSop({ show, setShow }) {
   //     }
   //     setSelectedValues(selectedValues);
   //   };
-
+  function handleSelectChanges(event) {
+    const selectedValue = event.target.value;
+    console.log(selectedValue);
+    setSelectedSop(parseInt(selectedValue))
+  }
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
     const selectedEmployee = users.find(
-      (employee) => employee.first_name.toString() === selectedValue
+      (employee) => employee.id.toString() === selectedValue
     );
-
-    if (
-      selectedEmployee &&
-      !selectedEmployees.includes(selectedEmployee.first_name)
-    ) {
-      setSelectedEmployees([...selectedEmployees, selectedEmployee]);
+    if (selectedEmployee) {
+      const alreadySelected = selectedEmployees.find(
+        (employee) => employee.id === selectedEmployee.id
+      );
+      if (!alreadySelected) {
+        setSelectedEmployees([...selectedEmployees, selectedEmployee]);
+      }
     }
   };
   const handleItemClick = (index) => {
-    const newItems = [...selectedEmployees]; // create a copy of the items array
-    newItems.splice(index, 1); // remove the clicked item from the copy
-    setSelectedEmployees(newItems); // update the state with the new array
+    console.log("salan")
+    const newItems = [...selectedEmployees];
+    newItems.splice(index, 1); 
+    setSelectedEmployees(newItems); 
   };
   useEffect(() => {
-     console.log("selected", selectedEmployees);
+    const names = selectedEmployees.map(obj => obj.id);
+     console.log("selected", names);
   }, [selectedEmployees]);
+  var raw = {
+    id: selectedSop,
+    sop_assigned_to: selectedEmployees.map(obj => obj.id),
+    status: 0,
+  };
+  const handleRouteChange = (route) => {
+    // Use the navigate() function to navigate to the specified route
+    navigate(route);
+  };
+  const checkForSuccessfull = (str) => {
+    return str.includes("SOP assigned successfully");
+  };
+  const assignSop = async () => {
+  
+    await fetch('https://phplaravel-391561-3408566.cloudwaysapps.com/api/assignSOP',  {
+      method: "POST",
+      // mode: "no-cors",
+      headers: {
+        Authorization: `Bearer ${Cookies.get("token")}`,
+        "Content-Type": "application/json"
+      },
+      body:JSON.stringify(raw),
+      redirect: 'follow',
+    })
+        .then(response => response.json())
+        .then(result => {
+          console.log(result);
+          console.log('THE RESULT====', result.message);
+          const isPresent = checkForSuccessfull(result.message);
+          //   "Company Registered successfully."
+          console.log(isPresent);
+          if (isPresent) {
+
+            handleRouteChange("/home");
+          }
+        })
+        .catch(error => {
+              console.log('error', error?.response);
+        });
+    };
   return (
     <React.Fragment>
-      <React.Fragment>
+   {loader ?  "loading" :<> <React.Fragment>
         <SideBar show={show} setShow={setShow} />
       </React.Fragment>
       <div className="container">
@@ -63,9 +140,9 @@ function AssignSop({ show, setShow }) {
             <div className="container-assign">
               <FormControl className="group">
                 <FormLabel htmlFor="first_name">Select SOP</FormLabel>
-                <Select variant='filled' placeholder="Select an SOP">
+                <Select variant='filled'onChange={handleSelectChanges} placeholder="Select an SOP">
                   {sops?.map((sop, index) => {
-                    return <option value={sop.title}>{sop.title}</option>;
+                    return <option key={index} value={sop.id}>{sop.title}</option>;
                   })}
                 </Select>
               </FormControl>
@@ -89,27 +166,43 @@ function AssignSop({ show, setShow }) {
                 <FormLabel htmlFor="first_name">Select Employee</FormLabel>
                 <Select variant='filled'  value="" onChange={handleSelectChange}>
                   <option value={selectedEmployees}>Select an employee</option>
-                  {users.map((employee) => (
-                    <option key={employee.id} value={employee.first_name}>
+                  {users?.map((employee) => (
+                    <option key={employee.id} value={employee.id}>
                       {employee.first_name}
                     </option>
                   ))}
                 </Select>
               </FormControl>
             </div>
-            {selectedEmployees.length > 0 && (
-              <div>
-                Selected employees:{" "}
-                {selectedEmployees.map((employed,index) => {
-                  return <p onClick={handleItemClick}>{employed.first_name}</p>;
+            <h4>Selected employees:{" "}</h4>
+          <div className="employee-data">  {selectedEmployees.length > 0 && (
+              <>
+                {selectedEmployees?.map((employed,index) => {
+          return        <CrossOnHover key={employed.id}  handleItemClick={handleItemClick} text={employed.first_name} />
+
+                  return <p key={employed.id} onClick={handleItemClick}>{employed.first_name}</p>;
                 })}
-              </div>
-            )}
+            </>
+            )}  </div>
           </div>
         </React.Fragment>
-      </div>
+        <button className="assignsop" onClick={assignSop}>Assign SOP</button>
+      </div></>}
     </React.Fragment>
   );
 }
 
 export default AssignSop;
+
+
+
+function CrossOnHover(props) {
+  return (
+    <p onClick={props.handleItemClick} className="cross-on-hover">
+      {props.text}
+      <span className="cross-icon">
+        <FaTimes />
+      </span>
+    </p>
+  );
+}
