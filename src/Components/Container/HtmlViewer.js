@@ -74,7 +74,7 @@ const HtmlViewer = ({ html }) => {
       }
     );
   
-    return <div dangerouslySetInnerHTML={{ __html: renderedHtml }} />;
+    return <div className="content" dangerouslySetInnerHTML={{ __html: renderedHtml }} />;
   };
   
   export default HtmlViewer;
