@@ -60,6 +60,24 @@
             }
             .content{
              margin: 0;
+             
+            img{
+                
+                width: 300px;
+                height: 300px;
+                }}
+            ol{ padding: 0;
+                list-style-type: none;
+                li{
+                    text-align: initial;
+                }
+            }
+            .sd{
+                list-style-type: disc;
+                padding: 0px 0px 0px 20px;
+                li{
+                    text-align: initial;
+                }
             }
          }
          .button{

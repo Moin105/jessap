@@ -5,6 +5,7 @@ import './overrides.css'
 import {GrFormPrevious,GrNext} from 'react-icons/gr'
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
+import HtmlViewer from './HtmlViewer';
 import Editor from './Editor';
 const MyCarousel = ({ objectData }) => {
 
@@ -146,7 +147,7 @@ useEffect(() => {
           <button   className='button' onClick={() =>{ handleSaveButtonClick(page);fetchData(requestOptions,page.sop_id,)}}>Finalise</button></>: 
           <>  <div className='clisco'>  
           <h3>{page.pageTitle}</h3>
-          <p className='content' dangerouslySetInnerHTML={{ __html: page.pageContent }} />
+          <HtmlViewer html={page.pageContent} />
           </div>  
           <button   className='button' onClick={() => {handleEditButtonClick(page);}}>edit</button></>}
         </div>

@@ -54,6 +54,24 @@
 .rowerist .row .page-content .clisco .content {
   margin: 0;
 }
+.rowerist .row .page-content .clisco .content img {
+  width: 300px;
+  height: 300px;
+}
+.rowerist .row .page-content .clisco ol {
+  padding: 0;
+  list-style-type: none;
+}
+.rowerist .row .page-content .clisco ol li {
+  text-align: initial;
+}
+.rowerist .row .page-content .clisco .sd {
+  list-style-type: disc;
+  padding: 0px 0px 0px 20px;
+}
+.rowerist .row .page-content .clisco .sd li {
+  text-align: initial;
+}
 .rowerist .row .page-content .button {
   margin: 10px 0px 10px 10px;
   max-width: 145px;
