@@ -1,0 +1,34 @@
+.sintu{
+    font-size: 40px;
+
+}
+.carousel.carousel-slider{
+    height: 60vh;
+    width: 100vw;
+
+    /* position: absolute; */
+    /* top: 0; */
+    /* left: 0; */
+}
+.carousel-root{
+    width: 100%;
+}
+.slider-wrapper{
+    height: 100%;
+}
+.slider{
+    height: 100%;
+}
+.slide{
+    height: 100%;
+    -webkit-box-shadow: inset -2px -1px 23px -12px rgba(0,0,0,0.75);
+    -moz-box-shadow: inset -2px -1px 23px -12px rgba(0,0,0,0.75);
+    box-shadow: inset -2px -1px 23px -12px rgba(0,0,0,0.75);
+}
+/* .carousel.carousel-slider .control-arrow{
+    display: none;
+
+} */
+.carousel .control-dots{
+    display: none;
+}

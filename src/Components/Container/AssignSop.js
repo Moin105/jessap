@@ -28,7 +28,7 @@ function AssignSop({ show, setShow }) {
 
 
   /////
-  // const auth = useSelector(state => state);
+  const auth = useSelector(state => state);
   const users = useSelector((state) => state.users.users.employees);
   const sops = useSelector((state) => state.sops.data);
   //   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -37,6 +37,7 @@ function AssignSop({ show, setShow }) {
   const [selectedSop, setSelectedSop] = useState([]);
   const [loader, setLoader] = useState(false)
 useEffect(() => {
+  console.log("asjad",auth)
     if(sops == [] && users == []){
       setLoader(true)
     }else{

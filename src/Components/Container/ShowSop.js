@@ -14,6 +14,7 @@ import HtmlViewer from "./HtmlViewer";
 import Cookies from "js-cookie";
 import Editor from "./Editor";
 import 'react-quill/dist/quill.snow.css';
+import MyCarousel from "./MyPage";
 
 // Function to handle route change
 
@@ -68,14 +69,15 @@ function DynamicComponent({show,setShow}) {
             if (isPresent){
               handleRouteChange('/home')
             }
-        //   console.log('Text data:', text);
-          // dispatch(fetchUsersSuccess(response)); // Dispatch success action with fetched data
-        })
-        .catch(error => {
-          // dispatch(fetchUsersFailure(error.message));
-        });
-    // };
-  };
+            //   console.log('Text data:', text);
+            // dispatch(fetchUsersSuccess(response)); // Dispatch success action with fetched data
+          })
+          .catch(error => {
+            // dispatch(fetchUsersFailure(error.message));
+          });
+          // };
+        };
+        const [content, setContent] = useState('');
   const navigate = useNavigate();
   const { id } = useParams(); // Extract the 'id' route parameter from the URL
   const location = useLocation();
@@ -83,26 +85,31 @@ function DynamicComponent({show,setShow}) {
   const  information = dataas.sop
   const [arr, setArr] = useState([information])
   const [editablePageIndex, setEditablePageIndex] = useState(null);
-  const [content, setContent] = useState(null);
+  
   const config = {
     headers: {
       'Authorization':`Bearer  ${Cookies.get("token")}`,
       'Content-Type': 'application/json'
     }
   };
+useEffect(() => {
+  console.log("bohemia",dataas)
+  console.log("bohemia",arr[0].steps)
+}, [])
 
-  const [updated ,setUpdated] = useState({
-    title:arr[0].title,
-    description:arr[0].description,
-    pages:[
-        {
-            pageTitle:arr[0].title,
-            sop_id:arr[0].steps[0].sop_id,
-            pageNumber:"1",
-            pageContent:content
-        }
-    ]
-  })
+  // const [updated ,setUpdated] = useState({
+  //   title:arr[0].title,
+  //   description:arr[0].description,
+  //   pages:[
+  //       {
+  //           pageTitle:arr[0].title,
+  //           sop_id:arr[0].id,
+  //           pageNumber:"1",
+  //           pageContent:content
+  //       }
+  //   ]
+  // })
+  
 useEffect(() => {
   console.log("qwertyuiop",Cookies.get("token"))
   console.log("moeen",content)
@@ -112,23 +119,23 @@ useEffect(() => {
   }, 2000);
 }, [])
 useEffect(() => {
-  console.log("wanga",content,arr[0].title)
-  // id:arr[0]
-  console.log("werthj2",arr[0].steps[0].sop_id)
-  const {pages} = updated ;
-  const newPages = [  {    ...updated.pages[0], // Copy all the properties of the first page
-    pageContent: content,
-    
-  }
-];
-const newUpdated = {
-  ...updated, // Copy all the properties of the original state object
-  pages: newPages
-};
-setUpdated(newUpdated);
+  console.log("agency",content,arr[0].title)
+//   console.log("agency1",arr[0])
+//   console.log("agency2",arr[0]?.steps[0]?.sop_id)
+//   // const {pages} = updated ;
+//   // const newPages = [  {    ...updated.pages[0], // Copy all the properties of the first page
+//   //   pageContent: content,
+//   // }
+// ];
 
-  // setUpdated({...updated,[...pages,page.C]})
-  console.log("werthj",arr ,updated)
+// const newUpdated = {
+//   ...updated, // Copy all the properties of the original state object
+//   pages: newPages
+// };
+// setUpdated(newUpdated);
+
+//   // setUpdated({...updated,[...pages,page.C]})
+//   console.log("werthj",arr ,updated)
 }, [content])
 
 const requestOptions = {
@@ -137,7 +144,7 @@ const requestOptions = {
     'Content-Type': 'application/json',
     'Authorization': 'Bearer ' + Cookies.get("token") 
   },
-  body: JSON.stringify(updated)
+  // body: JSON.stringify(updated)
 };
 const settings = {
     dots: true,
@@ -164,13 +171,19 @@ const settings = {
     // TODO: save the updated content to the pages array of the object at objectIndex
     setEditablePageIndex(null);
   };
-
 return (
     <React.Fragment>
 <div className="container">
 <Header   show={show} setShow={setShow}/>
-    <div>
-    {arr.map((object, objectIndex) => (
+    <div className="rowerist">
+    <div className="row">
+    <div className="h2">
+    <h2>{arr[0].title}</h2> 
+    </div>  
+    <p className="description">{arr[0].description}</p> 
+    <MyCarousel objectData={arr[0]}/>
+    </div>
+    {/* {arr.map((object, objectIndex) => (
       <div key={objectIndex}>
         <div className="row">
          <h2>{object.title}</h2>
@@ -186,7 +199,7 @@ return (
               editablePageIndex?.pageIndex === pageIndex ? (
              <>
              <Editor
-               setSop={setContent}  contents={page.pageContent}
+               setSop={setContent}onChange={setContent}  contents={page.pageContent}
                 //  onChange={(content) =>
                 //    handlePageSave(objectIndex, pageIndex, content)
                 //  }
@@ -212,8 +225,12 @@ return (
         : "no data"}
         </div>    
       </div>
-    ))}
-  </div></div>
+    ))} */}
+  </div>
+  </div>
+  {/* <div className="container">
+   {}
+   </div>  */}
 </React.Fragment>
 )
 }

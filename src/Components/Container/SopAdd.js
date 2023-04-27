@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Editor from "./Editor";
 import Header from "../Header";
 import Sops from "./Sops";
 import AddSops from "./AddSops";
-import { Formik, Form, Field,useFormik } from "formik";
+import { Formik, Form, Field, useFormik, useFormikContext } from "formik";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { Route, Routes } from "react-router-dom";
@@ -20,28 +20,67 @@ import { FiChevronDown } from "react-icons/fi";
 function SopAdd({ show, setShow }) {
   const [content, setContent] = useState(null);
   const [sopformat, setSopFormat] = useState({});
-  const [pageNumber, setPageNumber] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
   const [selectedValue, setSelectedValue] = useState("Single SOP");
   const [pages, setPages] = useState([]);
+  const [showFields, setShowFields] = useState(false);
+  const [values,setValues] = useState({})
+  const [pageTitle, setPageTitle] = useState("");
+  // new formation
+  const [showEditor ,setShowEditor] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
-  // const formik = useFormik({
-  //   initialValues:{
-  //               title: "",
-  //               description: "",
-  //               pages: [
-  //                 { pageTitle: "", pageNumber: "1", pageContent: content },
-  //               ],
-  //             }
- 
-  // });
-  
-  const handleSelectChange = (event) => {
-    const value = event.target.value;
-    setSelectedValue(value);
+  const myInputs = useRef(null);
+  const editor = useRef(null);
+  // const handleSelectChange = (event) => {
+  //   const value = event.target.value;
+  //   setSelectedValue(value);
+  // };
+  const handleClearEditor = () => {
+    setContent('');
+  };
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+    
+  };
+  const getValues = (e) => {
+    e.preventDefault();
+
+    // const values = {};
+    const inputs = myInputs.current.querySelectorAll("input");
+    inputs.forEach((input) => {
+      values[input.name] = input.value;
+    });
+    if(values.title && values.description !== "" ){
+      setShowEditor(true)
+      setIsDisabled(true)
+    }else{
+      setShowEditor(false)
+      setIsDisabled(false) 
+    }
+    console.log(values);
+    // for single sop 
+    setSopFormat(
+      {
+        title: values.title,
+            description: values.description,
+            pages: [{ pageTitle: values.title, pageNumber: pageNumber, pageContent: content }],
+      }
+    )
   };
   useEffect(() => {
-    console.log("qwertyuiolkjhgfds", content);
+    console.log("qwertyuiolkjhgfds", editor.current);
   }, [content]);
+  useEffect(() => {}, []);
+
+  // useEffect(() => {
+  //   if(pages.length <= 0){
+  //    setShowFields(true)
+  //   }else{
+  //     setShowFields(false)
+  //   }
+  // }, [pages])
 
   async function postData(data) {
     console.log("mpeen", data);
@@ -76,36 +115,19 @@ function SopAdd({ show, setShow }) {
   const checkForSuccessfull = (str) => {
     return str.includes("successfull");
   };
-  const formik = useFormik({
-    initialValues:{
-      title: "",
-      description: "",
-      pages: [
-        { pageTitle: "", pageNumber: "1", pageContent: content },
-      ],
-    },
-    onSubmit: (values) => {
-      console.log("Submitted values:", values);
-    },
-  });
-  const handleLogin = async (values, { setSubmitting }) => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     console.log("qwertyyuiu", values, content);
     setSopFormat({
       title: values.title,
       description: values.description,
-      pages: [{ pageTitle: values.title, pageNumber: "1", pageContent: content }],
+      pages: [{ pageTitle: values.title, pageNumber: pageNumber, pageContent: content }],
     });
     console.log("khan painchod", sopformat);
     setTimeout(() => {
       console.log("khan painchod", sopformat);
     }, 3000);
-    postData({
-      title: values.title,
-      description: values.description,
-      pages: [
-        { pageTitle: values.title, pageNumber: "1", pageContent: content },
-      ],
-    })
+    postData(sopformat)
       .then((res) => {
         console.log("safweewg", res);
         const isPresent = checkForSuccessfull(res.message);
@@ -120,99 +142,149 @@ function SopAdd({ show, setShow }) {
         // Handle errors
       });
   };
-  const handleLoginMultiple = async (values, { setSubmitting }) => {
-    // setPageNumber(pageNumber + 1)
-    // console.log("qwertyyuiu", values, content);
+  const addNewPage = async(e) => {
+    getValues(e)
+    e.preventDefault();
+    const inputs = myInputs.current.querySelectorAll("input");
+    console.log("mir",values)
     const newPage = {
-      pageTitle: values.pageTitle,
-      pageNumber: pageNumber,
-      pageContent: content,
-    };
-    setPages([...pages, newPage]);
+          pageTitle: values.pagetitle,
+          pageNumber: pageNumber,
+          pageContent: content,
+        };
+        setPages([...pages, newPage]);
     setPageNumber(pageNumber + 1);
     console.log("sigma",newPage,pages)
-    // formik.resetForm();
-    setSopFormat({
+    inputs.forEach((input) => {
+      if (input.name === "pagetitle") {
+        input.value = "";
+      }
+    });
+    setContent(null);
+       setSopFormat({
       title: values.title,
       description: values.description,
       pages: pages,
     });
-    console.log("khan painchod", sopformat);
-    setTimeout(() => {
-      console.log("khan painchod", sopformat);
-    }, 3000);
-    console.log(formik)
-    formik.resetForm();
-    // postData({
-    //   title: values.title,
-    //   description: values.description,
-    //   pages: pages,
-    // })
-    //   .then((res) => {
-    //     console.log("safweewg", res);
-    //     const isPresent = checkForSuccessfull(res.message);
-    //     //   "Company Registered successfully."
-    //     console.log(isPresent);
-    //     if (isPresent) {
-    //       handleRouteChange("/home");
-    //     }
-    //     // Handle successful API call
-    //   })
-    //   .catch((error) => {
-    //     // Handle errors
-    //   });
-  };
-  const handleLoginMultiples = async (values, { setSubmitting }) => {
-    // setPageNumber(pageNumber + 1)
-    // console.log("qwertyyuiu", values, content);
-    // const newPage = {
-    //   pageTitle: values.pageTitle,
-    //   pageNumber: pageNumber,
-    //   pageContent: content,
-    // };
-    // setPages([...pages, newPage]);
-    // setPageNumber(pageNumber + 1);
-    // console.log("sigma",newPage,pages)
-    // // formik.resetForm();
-    // setSopFormat({
-    //   title: values.title,
-    //   description: values.description,
-    //   pages: pages,
-    // });
-    // console.log("khan painchod", sopformat);
-    // setTimeout(() => {
-    //   console.log("khan painchod", sopformat);
-    // }, 3000);
-    // console.log(formik)
-    // formik.resetForm();
-    postData({
-      title: values.title,
-      description: values.description,
-      pages: pages,
+    handleClearEditor();
+  }
+  const multipleHandleSubmit = async(e) => {
+    e.preventDefault();
+    console.log("qwertyyuiu",sopformat);
+    postData(sopformat)
+    .then((res) => {
+      console.log("safweewg", res);
+      const isPresent = checkForSuccessfull(res.message);
+      //   "Company Registered successfully."
+      console.log(isPresent);
+      if (isPresent) {
+        handleRouteChange("/home");
+      }
+      // Handle successful API call
     })
-      .then((res) => {
-        console.log("safweewg", res);
-        const isPresent = checkForSuccessfull(res.message);
-        //   "Company Registered successfully."
-        console.log(isPresent);
-        if (isPresent) {
-          handleRouteChange("/home");
-        }
-        // Handle successful API call
-      })
-      .catch((error) => {
-        // Handle errors
-      });
-  };
+    .catch((error) => {
+      // Handle errors
+    });
+  }
+  // const handleLoginMultiple = async (values, ) => {
+  //   // setPageNumber(pageNumber + 1)
+  //   // console.log("mir",formik.values);
+  //   console.log("mir",values)
+  //   // console.log("qwertyyuiu", values, content);
+  //   if(values.pageTitle == ("" ||undefined)){
+
+  //   }else {
+  //     setPageTitle(values.pageTitle)
+  //   }
+  //   const newPage = {
+  //     pageTitle: pageTitle,
+  //     pageNumber: pageNumber,
+  //     pageContent: content,
+  //   };
+  //   setPages([...pages, newPage]);
+  //   setPageNumber(pageNumber + 1);
+  //   console.log("sigma",newPage,pages)
+  //   // formik.resetForm();
+  //   setSopFormat({
+  //     title: values.title,
+  //     description: values.description,
+  //     pages: pages,
+  //   });
+  //   console.log("khan painchod", sopformat);
+  //   // setTimeout(() => {
+  //   //   console.log("khan painchod", sopformat);
+  //   // }, 3000);
+  //   // console.log(formik)
+  //   // formik.resetForm();
+  //   // postData({
+  //   //   title: values.title,
+  //   //   description: values.description,
+  //   //   pages: pages,
+  //   // })
+  //   //   .then((res) => {
+  //   //     console.log("safweewg", res);
+  //   //     const isPresent = checkForSuccessfull(res.message);
+  //   //     //   "Company Registered successfully."
+  //   //     console.log(isPresent);
+  //   //     if (isPresent) {
+  //   //       handleRouteChange("/home");
+  //   //     }
+  //   //     // Handle successful API call
+  //   //   })
+  //   //   .catch((error) => {
+  //   //     // Handle errors
+  //   //   });
+  // };
+  // const handleLoginMultiples = async (values) => {
+  //   // setPageNumber(pageNumber + 1)
+  //   // console.log("qwertyyuiu", values, content);
+  //   // const newPage = {
+  //   //   pageTitle: values.pageTitle,
+  //   //   pageNumber: pageNumber,
+  //   //   pageContent: content,
+  //   // };
+  //   // setPages([...pages, newPage]);
+  //   // setPageNumber(pageNumber + 1);
+  //   // console.log("sigma",newPage,pages)
+  //   // // formik.resetForm();
+  //   // setSopFormat({
+  //   //   title: values.title,
+  //   //   description: values.description,
+  //   //   pages: pages,
+  //   // });
+  //   // console.log("khan painchod", sopformat);
+  //   // setTimeout(() => {
+  //   //   console.log("khan painchod", sopformat);
+  //   // }, 3000);
+  //   // console.log(formik)
+  //   // formik.resetForm();
+  //   postData({
+  //     title: values.title,
+  //     description: values.description,
+  //     pages: pages,
+  //   })
+  //     .then((res) => {
+  //       console.log("safweewg", res);
+  //       const isPresent = checkForSuccessfull(res.message);
+  //       //   "Company Registered successfully."
+  //       console.log(isPresent);
+  //       if (isPresent) {
+  //         handleRouteChange("/home");
+  //       }
+  //       // Handle successful API call
+  //     })
+  //     .catch((error) => {
+  //       // Handle errors
+  //     });
+  // };
   // const multipleHandleSubmit = (values) => {
   //   console.log("Submitted values:", values);
 
   // };
 
-
-  const handleReset = () => {
-    formik.resetForm();
-  };
+  // const handleReset = () => {
+  //   formik.resetForm();
+  // };
   return (
     <React.Fragment>
       <div className="container">
@@ -223,7 +295,83 @@ function SopAdd({ show, setShow }) {
           style={{ width: "100%", alignItems: "center" }}
         >
           <h2>Add SOP</h2>
-          {selectedValue == "Single SOP" && (
+          <form className="form" ref={myInputs}>
+            <div className="sikna">
+              <div className="group">
+                <label>SOP Title</label>
+                <input type="text" placeholder="SOP Title" name="title" disabled={isDisabled}/>
+              </div>
+              <div className="group">
+                <label>SOP Description</label>
+                <input
+                  type="text"
+                  placeholder="SOP Description"
+                  name="description"
+                  disabled={isDisabled}
+                />
+              </div>
+            </div>
+            {showEditor && <div className="checkboxer">
+              <h2>Add Content</h2>
+              <label style={{display:"flex",alignItems:"center"}}>
+        <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={handleCheckboxChange}
+          style={{ width: '20px', height: '20px',margin:"0px 10px 0px 0px" }}
+        />
+        Multi-page SOP
+      </label>
+    {isChecked  &&<div className="group">
+                <label>SOP Page Title</label>
+                <input type="text" placeholder="SOP Title" name="pagetitle" />
+              </div>}
+              <Editor  setSop={setContent} onChange={setContent} contents={content} />
+            </div>  
+              }
+            {/* <div className="group">
+               <label>
+                Title
+               </label>
+               <input type="text" placeholder="title"/>
+            </div> */}
+     { !isChecked   ?  <>  {!showEditor ? <button
+              style={{
+                margin: "10px 0px",
+                maxWidth: "145px",
+                fontSize: "14px",
+                width: "95%",
+              }}
+              onClick={getValues}
+            >
+              Confirm
+            </button>:<button
+              style={{
+                margin: "10px 0px",
+                maxWidth: "145px",
+                fontSize: "14px",
+                width: "95%",
+              }}
+              onClick={handleLogin}
+            >
+              Finalise SOP
+            </button>}</> :<>
+            <button   style={{
+                margin: "10px 0px",
+                maxWidth: "145px",
+                fontSize: "14px",
+                width: "95%",
+              }} onClick={addNewPage}>Add New Page</button>
+              <button   style={{
+                margin: "10px 0px 0px 10px",
+                maxWidth: "145px",
+                fontSize: "14px",
+                width: "95%",
+              }} onClick={multipleHandleSubmit}>Finalise SOP</button>
+            </> 
+            }
+          </form>
+          {/* {selectedValue !== ("Multiple SOP") && (
             <Formik
               initialValues={{
                 title: "",
@@ -287,15 +435,15 @@ function SopAdd({ show, setShow }) {
                   { pageTitle: "", pageNumber: "1", pageContent: content },
                 ],
               }}
-              onSubmit={handleLoginMultiples}
+              onSubmit={handleLoginMultiple}
             >
               {({ isSubmitting }) => (
                 <Form className="form">
                   <div className="sikna">
-                    <FormControl>
+              {showFields  &&    <FormControl>
                       <FormLabel htmlFor="title">Title</FormLabel>
                       <Field as={Input} type="title" name="title" id="title" />
-                    </FormControl>
+                    </FormControl>}
                     <FormControl style={{ position: "relative" }}>
                       <FormLabel htmlFor="title">Sop</FormLabel>
                       <Select
@@ -320,7 +468,7 @@ function SopAdd({ show, setShow }) {
                       />
                     </FormControl>
                   </div>
-                  <FormControl
+                  {showFields  &&        <FormControl
                     style={{
                       display: "flex",
                       flexDirection: "column",
@@ -328,7 +476,7 @@ function SopAdd({ show, setShow }) {
                   >
                     <FormLabel htmlFor="description">Description</FormLabel>
                     <Field as="textarea" id="description" name="description" />
-                  </FormControl>
+                  </FormControl>}
                   <Editor setSop={setContent} contents={content} />
                   <div style={{display: "flex",justifyContent: "flex-end"}}>
 
@@ -360,7 +508,7 @@ function SopAdd({ show, setShow }) {
                 </Form>
               )}
             </Formik>
-          )}
+          )} */}
         </div>
       </div>
     </React.Fragment>

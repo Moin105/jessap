@@ -3,7 +3,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import './myy-snow.css';
 
-function Editor({setSop , contents}) {
+function Editor({setSop , contents,onChange}) {
   const [content, setContent] = useState(contents);
 
   const inputRef = useRef(null);
@@ -35,14 +35,32 @@ function Editor({setSop , contents}) {
   // useEffect(() => {
   //   setContent(contents)
   // }, [])
-  
+  // const quillInstance = quillRef.current.getEditor();
 useEffect(() => {
-   console.log("safer",content)
+  //  console.log("safer",quillRef.current.getEditor().root.innerHTML)
 
-  
+  // if(contents==""){
+    // console.log("safer1",content)
+
+    // setContent(''); // or 
+    // quillInstance.setText('');
+    // setSop('')
+    //  quillInstance = quillRef.current.getEditor();
+    //  quillInstance.setContents([]);
+    // setContent('');
+  // }else{
    setSop(content)
+  // }
+  //  if(contents==""){
+  //   console.log("safer1",content)
 
+  //   setContent(''); // or 
+  //   quillInstance.setText('');
+  //   setSop('')
+  //   quillInstance.setContent('');
+  //  }
 }, [content])
+// useEffect(() => {if(contents == ""){setContent(contents)}}, [contents])
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -78,7 +96,7 @@ useEffect(() => {
     quillInstance.setContents([]);
   };
   return (
-    <div style={{width: "98%",margin: "30px auto"}}> 
+    <div style={{width: "98%",margin: "0px auto"}}> 
       <div>
         {/* <button onClick={handleBold}>Bold</button>
         <button onClick={handleItalic}>Italic</button>
@@ -88,7 +106,7 @@ useEffect(() => {
         <button onClick={handleImageUpload}>Upload Image</button> */}
         <input type="file" accept="image/*" style={{ display: 'none' }} ref={inputRef} onChange={handleFileChange} />
       </div>
-      <ReactQuill ref={quillRef} value={content} onChange={setContent} modules={modules} />
+      <ReactQuill ref={quillRef} value={contents} onChange={onChange} modules={modules} />
       {/* <button onClick={handleClick}>Get HTML and Clear Editor</button> */}
 
     </div>

@@ -71,6 +71,7 @@
 .container .container-assign .group {
   display: flex;
   width: 50%;
+  text-align: left;
   align-items: flex-start;
 }
 .container .container-assign .group div .chakra-select__icon-wrapper {
@@ -109,7 +110,21 @@
 .container .container-sop .form .sikna {
   display: flex;
   justify-content: space-between;
-  gap: 40px;
+  gap: 25px;
+  flex-direction: column;
+}
+.container .container-sop .form .sikna .group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+.container .container-sop .form .sikna .group label {
+  padding: 0;
+  font-size: 18px;
+}
+.container .container-sop .form .sikna label {
+  text-align: left;
 }
 .container .container-sop .form .sikna div {
   display: flex;
