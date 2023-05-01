@@ -7,11 +7,11 @@ import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 import HtmlViewer from './HtmlViewer';
 import Editor from './Editor';
-const MyCarousel = ({ objectData }) => {
+const EmployeeCarousel = ({ objectData }) => {
 
     const [selectedPage, setSelectedPage] = useState(null);
     const [editorContent, setEditorContent] = useState('');
-    const { steps,title,description } = objectData;
+    const { steps,title,description,user_id } = objectData;
     const [pages, setPages] = useState(steps);
     const navigate = useNavigate();
     const checkForSuccessfull = (str) => {
@@ -145,16 +145,18 @@ useEffect(() => {
           <Editor setSop={setEditorContent} onChange={handleEditorChange} contents={editorContent}/>
           {/* <p className='content' dangerouslySetInnerHTML={{ __html: page.pageContent }} /> */}
           </div>  
-          <button   className='button' onClick={() =>{ handleSaveButtonClick(page);fetchData(requestOptions,page.sop_id,)}}>Finalise</button></>: 
+          <button   className='button' onClick={() =>{ handleSaveButtonClick(page);fetchData(requestOptions,page.sop_id)}}>Finalise</button></>: 
           <>  <div className='clisco'>  
           <h3>{page.pageTitle}</h3>
-          <HtmlViewer html={page.pageContent} />
+          <HtmlViewer html={page.pageContent}  sopId={page.sop_id} userId={user_id}/>
           </div>  
-          <button   className='button' onClick={() => {handleEditButtonClick(page);}}>edit</button></>}
+          {/* <button   className='button' onClick={() => {handleEditButtonClick(page);}}>bc</button> */}
+          </>
+          }
         </div>
       ))}
     </Carousel>
   );
 };
 
-export default MyCarousel;
+export default EmployeeCarousel;

@@ -23,6 +23,7 @@ export default class NextJsCarousel extends Component {
         top: "0",
         bottom: "auto",
         padding: ".4em",
+        margin:"auto 0 !important" ,
         zIndex: 2,
         width: "55px",
         height: "100%",
@@ -42,7 +43,7 @@ export default class NextJsCarousel extends Component {
                     left: "0",
                     backgroundColor: "transparent",
                     border: "none",
-                    margin: "auto 74px ",
+                    margin: "auto 0px ",
                   }}
                 >
                   {" "}
@@ -62,7 +63,7 @@ export default class NextJsCarousel extends Component {
                     right: 0,
                     background: "transparent",
                     border: "none",
-                    margin: "auto 74px ",
+                    margin: "auto 0px ",
                   }}
                 >
                   {" "}

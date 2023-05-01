@@ -237,9 +237,14 @@
 .container .container-sop .card-sop .row .hidden-box .edit {
   background-color: #A1E6E0;
 }
+.container .container-sop .card-sop .row .danger {
+  color: #FF6961;
+  margin: 0px 25px 0px 0px;
+  font-size: 30px;
+}
 .container .container-sop .card-sop .row .dots {
   width: 10px;
-  margin: 0px 25px 0px 0px;
+  margin: 5px 25px 0px 0px;
   height: 32px;
   cursor: pointer;
 }

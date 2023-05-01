@@ -70,7 +70,7 @@ function SopAdd({ show, setShow }) {
     )
   };
   useEffect(() => {
-    console.log("qwertyuiolkjhgfds", editor.current);
+    console.log("qwertyuiolkjhgfds", content);
   }, [content]);
   useEffect(() => {}, []);
 
@@ -117,16 +117,16 @@ function SopAdd({ show, setShow }) {
   };
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("qwertyyuiu", values, content);
-    setSopFormat({
-      title: values.title,
-      description: values.description,
-      pages: [{ pageTitle: values.title, pageNumber: pageNumber, pageContent: content }],
-    });
+    console.log("qwertyyuiu", sopformat);
+    // setSopFormat({
+    //   title: values.title,
+    //   description: values.description,
+    //   pages: [{ pageTitle: values.title, pageNumber: pageNumber, pageContent: content }],
+    // });
     console.log("khan painchod", sopformat);
-    setTimeout(() => {
-      console.log("khan painchod", sopformat);
-    }, 3000);
+    // setTimeout(() => {
+    //   console.log("khan painchod", sopformat);
+    // }, 3000);
     postData(sopformat)
       .then((res) => {
         console.log("safweewg", res);

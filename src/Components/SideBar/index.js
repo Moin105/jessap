@@ -65,7 +65,7 @@ function SideBar({ show, setShow }) {
             <Link to='/home'> <Tab name="SOPs" icon={setting} /></Link>
              <Link to='/users'> <Tab name="USERS" icon={user} /></Link>
               <Tab name="Support" icon={whatsapp} />
-              <Link to="/addemployee"><Tab name="Add employees" icon={user} /></Link>
+              <Link to="/addemployee"><Tab name="Add employee" icon={user} /></Link>
              <Link to="/assignsop"><Tab name="Assign SOP" icon={user} /></Link>
              <button onClick={logouts} >logout</button>
                 
@@ -84,7 +84,7 @@ function SideBar({ show, setShow }) {
                   <Link to='/home'> <Tab name="SOPs" icon={setting} /></Link>
              <Link to='/users'> <Tab name="USERS" icon={user} /></Link>
               <Tab name="Support" icon={whatsapp} />
-              <Link to="/addemployee"><Tab name="Add employees" icon={user} /></Link>
+              <Link to="/addemployee"><Tab name="Add employee" icon={user} /></Link>
               <Link to="/assignsop"><Tab name="Assign SOP" icon={user} /></Link>
               <button onClick={logouts} >logout</button>
                   </div>
@@ -100,7 +100,7 @@ function SideBar({ show, setShow }) {
                 <Link to='/home'> <Tab name="SOPs" icon={setting} /></Link>
              <Link to='/users'> <Tab name="USERS" icon={user} /></Link>
               <Tab name="Support" icon={whatsapp} />
-              <Link to="/addemployee"><Tab name="Add employees" icon={user} /></Link>
+              <Link to="/addemployee"><Tab name="Add employee" icon={user} /></Link>
               <Link to="/assignsop"><Tab name="Assign SOP" icon={user} /></Link>
               <button onClick={logouts} >logout</button>
                 </div>

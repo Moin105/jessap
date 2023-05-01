@@ -15,6 +15,7 @@ import Cookies from "js-cookie";
 import Editor from "./Editor";
 import 'react-quill/dist/quill.snow.css';
 import MyCarousel from "./MyPage";
+import EmployeeCarousel from "./EmployeeCarousel";
 
 // Function to handle route change
 
@@ -85,7 +86,7 @@ function DynamicComponent({show,setShow}) {
   const  information = dataas.sop
   const [arr, setArr] = useState([information])
   const [editablePageIndex, setEditablePageIndex] = useState(null);
-  
+  const role = Cookies.get("role")
   const config = {
     headers: {
       'Authorization':`Bearer  ${Cookies.get("token")}`,
@@ -146,6 +147,7 @@ const requestOptions = {
   },
   // body: JSON.stringify(updated)
 };
+const status = arr[0].status
 const settings = {
     dots: true,
     infinite: true,
@@ -181,7 +183,8 @@ return (
     <h2>{arr[0].title}</h2> 
     </div>  
     <p className="description">{arr[0].description}</p> 
-    <MyCarousel objectData={arr[0]}/>
+    {role == "employee" ? <EmployeeCarousel objectData={arr[0]}/>:<MyCarousel objectData={arr[0]}/>}
+    {/* <MyCarousel objectData={arr[0]}/> */}
     </div>
     {/* {arr.map((object, objectIndex) => (
       <div key={objectIndex}>

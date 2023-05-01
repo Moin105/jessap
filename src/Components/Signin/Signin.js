@@ -3,26 +3,17 @@ import { Formik, Form, Field } from "formik";
 import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import "./styles.css";
 import { useDispatch, useSelector } from 'react-redux'
+// import store from '../../app/store'
 import Cookies from 'js-cookie';
 import { useNavigate } from "react-router-dom";
 import {auth as auther,provider} from '../../firebase';
-// import firebase from '../../firebase';
+import { setRole, setEmployeeId } from "../../features/counter/userSlice";
 import { signInWithPopup } from "firebase/auth";
-// import 'firebase/auth';
-// import firebase from 'firebase/app';
-// import 'firebase/auth';
-
-// const provider = new firebase.auth.GoogleAuthProvider();
-// import { useNavigate } from 'react-router-dom';
 import { loginSuccess } from "../../features/counter/authActions";
 import { signupSuccess } from "../../features/counter/authActions";
-// import { registerUser } from '../features/auth/authActions'
 import { Link } from "react-router-dom";
-// import { registerUser } from "../../features/auth/authAction";
 import { useEffect } from "react";
 import { onlineManager } from "react-query";
-// import { signupSuccess } from '../redux/actions/authActions';
-// import api from '../../api/api'
 export const login = async (formData) => {
   console.log("firstttt")
   try {
@@ -72,26 +63,25 @@ const Signin = ({onLogin}) => {
   const handleLogin = async (values, { setSubmitting }) => {
     try {
       const response = await login(values);
+      console.log("marijuana",response)
       const { token } = response.data;
 
-      // Dispatch loginSuccess action with token
       dispatch(loginSuccess(token));
-            console.log("token",token)
+            console.log("token",response.data.user.id)
       if(token !== ""){
         Cookies.set('token', token);
-        console.log("marijuana",onLogin)
+        Cookies.set('role', response.data.user.role);
+        Cookies.set('employeeId', response.data.user.id);
+        console.log("marijuana",response.data.user.role)
+        dispatch(setRole(response.data.user.role));
+        dispatch(setEmployeeId(response.data.user));
         onLogin(true)
-        // isAuthenticated(true)
-        // handleRouteChange('/home')
-        // history.push('route');
+        
       }
-      // Handle successful login, e.g., redirect to dashboard
-    
-      // Reset form and set submitting to false
+
       setSubmitting(false);
       handleRouteChange('/home')
     } catch (error) {
-      // Handle login error
       setSubmitting(false);
     }
   };
@@ -154,43 +144,7 @@ const Signin = ({onLogin}) => {
   }
   return (
     <div className="sign-up">
-      {/* {userInfo} */}
-{/* <>{success },</> */}
-      {/* <div className="container"> */}
-        {/* <Formik
-          initialValues={{ email: "", password: "" }}
-         onSubmit={handleLogin}
-        >
-          {({ isSubmitting }) => (
-            <Form>
-              <FormControl>
-                <FormLabel htmlFor="email">Email</FormLabel>
-                <Field as={Input} type="email" name="email" id="email" />
-              </FormControl>
-              <FormControl mt={4}>
-                <FormLabel htmlFor="password">Password</FormLabel>
-                <Field
-                  as={Input}
-                  type="password"
-                  name="password"
-                  id="password"
-                />
-              </FormControl>
-              <Button
-                mt={4}
-                colorScheme="blue"
-                type="submit"
-                onClick={handleLogin}
-              >
-                Submit
-              </Button>
-            </Form>
-          )}
-
-        </Formik> */}
-      {/* </div> */}
       <div className="containers">
-      {/* Render login form using Formik */}
       <Formik
         initialValues={{ email: '', password: '' }}
         onSubmit={handleLogin}
@@ -210,26 +164,16 @@ const Signin = ({onLogin}) => {
                   id="password"
                 />
               </FormControl>
-              {/* <Button
-                mt={4}
-                colorScheme="blue"
-                type="submit"
-                onClick={submitForm}
-              >
-                Submit
-              </Button> */}
-            {/* <Field type="email" name="email" placeholder="Email" />
-            <Field type="password" name="password" placeholder="Password" /> */}
             <button style={{margin:"10px 0px"}} type="submit" disabled={isSubmitting}>
-              {isSubmitting ? 'Logging in...' : 'Submit'}
+              {isSubmitting ? 'Logging in' : 'Submit'}
             </button>
-            <span>Dont have an account?<Link to="/signup"><p>Sign Up</p></Link></span>
           </Form>
         )}
       </Formik>
             <button onClick={signInWithGoogle}>
                 Sign in with Google
             </button>
+        <span>Dont have an account?<Link to="/signup"><p>Sign Up</p></Link></span>
     </div>
     </div>
   );
