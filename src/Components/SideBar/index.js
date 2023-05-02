@@ -9,6 +9,7 @@ import Cookies from 'js-cookie';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 import { LOGOUT } from "../../features/counter/authReducer";
 import { logout } from "../../features/counter/authActions";
 // import { showNav, hideNav } from "../../Actions/action";
@@ -17,7 +18,7 @@ import { logout } from "../../features/counter/authActions";
 function SideBar({ show, setShow }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const role = Cookies.get("role");
   // Function to handle route change
   const handleRouteChange = (route) => {
     // Use the navigate() function to navigate to the specified route
@@ -62,11 +63,11 @@ function SideBar({ show, setShow }) {
               <img src={logo} />
             </figure>
             <div className="btn-container">
-            <Link to='/home'> <Tab name="SOPs" icon={setting} /></Link>
+     { role == "employee"  ? <><Link to='/home'> <Tab name="SOPs" icon={setting} /></Link> <Tab name="Support" icon={whatsapp} /></> :<>  <Link to='/home'> <Tab name="SOPs" icon={setting} /></Link>
              <Link to='/users'> <Tab name="USERS" icon={user} /></Link>
               <Tab name="Support" icon={whatsapp} />
               <Link to="/addemployee"><Tab name="Add employee" icon={user} /></Link>
-             <Link to="/assignsop"><Tab name="Assign SOP" icon={user} /></Link>
+             <Link to="/assignsop"><Tab name="Assign SOP" icon={user} /></Link></>}
              <button onClick={logouts} >logout</button>
                 
             </div>
@@ -81,11 +82,11 @@ function SideBar({ show, setShow }) {
                     <img src={logo} />
                   </figure>
                   <div className="btn-container">
-                  <Link to='/home'> <Tab name="SOPs" icon={setting} /></Link>
+                  { role == "employee"  ? <><Link to='/home'> <Tab name="SOPs" icon={setting} /></Link> <Tab name="Support" icon={whatsapp} /></> :<>  <Link to='/home'> <Tab name="SOPs" icon={setting} /></Link>
              <Link to='/users'> <Tab name="USERS" icon={user} /></Link>
               <Tab name="Support" icon={whatsapp} />
               <Link to="/addemployee"><Tab name="Add employee" icon={user} /></Link>
-              <Link to="/assignsop"><Tab name="Assign SOP" icon={user} /></Link>
+             <Link to="/assignsop"><Tab name="Assign SOP" icon={user} /></Link></>}
               <button onClick={logouts} >logout</button>
                   </div>
                 </div>
@@ -97,11 +98,11 @@ function SideBar({ show, setShow }) {
                   <img src={logo} />
                 </figure>
                 <div className="btn-container">
-                <Link to='/home'> <Tab name="SOPs" icon={setting} /></Link>
+                { role == "employee"  ? <><Link to='/home'> <Tab name="SOPs" icon={setting} /></Link> <Tab name="Support" icon={whatsapp} /></> :<>  <Link to='/home'> <Tab name="SOPs" icon={setting} /></Link>
              <Link to='/users'> <Tab name="USERS" icon={user} /></Link>
               <Tab name="Support" icon={whatsapp} />
               <Link to="/addemployee"><Tab name="Add employee" icon={user} /></Link>
-              <Link to="/assignsop"><Tab name="Assign SOP" icon={user} /></Link>
+             <Link to="/assignsop"><Tab name="Assign SOP" icon={user} /></Link></>}
               <button onClick={logouts} >logout</button>
                 </div>
               </div>

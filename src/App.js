@@ -20,6 +20,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import AddSop from "./Components/Container/AddSop";
 import SopAdd from "./Components/Container/SopAdd";
+import { fetchUser } from "./Components/Container/Users";
 import Signup from "./Components/Signup/Signup";
 import ShowSop from "./Components/Container/ShowSop";
 import AddEmployee from "./Components/Container/AddEmployee";
@@ -71,12 +72,18 @@ function App() {
       }
     }
   }, [token]);
+  const config = {
+    headers: {
+      'Authorization':`Bearer  ${Cookies.get("token")}`
+    }
+  };
   useEffect(() => {
     console.log("user", user);
   
     if(Cookies.get("role") !== (""||undefined || null) ){
       dispatch(setRole(role));
       dispatch(setEmployeeId(employeeId));
+      dispatch(fetchUser(config));
     setUserRole(role);
     console.log("role", user);
   }

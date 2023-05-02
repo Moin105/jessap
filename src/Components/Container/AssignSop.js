@@ -7,25 +7,24 @@ import Cookies from "js-cookie";
 import { Select, FormControl, FormLabel } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "./Sops";
+import { fetchUsersRequest,fetchUsersFailure,fetchUsersSuccess } from "../../features/counter/userActions";
 import { fetchUser } from "./Users";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom"; 
 import { FaTimes } from "react-icons/fa";
-const config = {
-  headers: {
-    'Authorization':`Bearer  ${Cookies.get("token")}`,
-     'Content-Type': 'application/json',
-  }
-};
 
 function AssignSop({ show, setShow }) {
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchData(config)); 
-    dispatch(fetchUser(config));
-  }, [])
+  // useEffect(() => {
+  // }, [])
   ////
-
+  const config = {
+    headers: {
+      'Authorization':`Bearer  ${Cookies.get("token")}`,
+      'Content-Type': 'application/json',
+    }
+    };
+    
 
   /////
   const auth = useSelector(state => state);
@@ -63,6 +62,24 @@ const navigate = useNavigate();
     console.log(selectedValue);
     setSelectedSop(parseInt(selectedValue))
   }
+  const fetchUser = (config) => {
+    return (dispatch) => {
+      dispatch(fetchUsersRequest());
+      fetch('https://phplaravel-391561-3408566.cloudwaysapps.com/api/employees',config) // Replace with your API endpoint
+        .then(response => {
+          return response.json();
+        })
+        .then((response) => {
+          // Use parsed JSON data and text data as needed
+          console.log('JSON data:', response);
+        //   console.log('Text data:', text);
+          dispatch(fetchUsersSuccess(response)); // Dispatch success action with fetched data
+        })
+        .catch(error => {
+          dispatch(fetchUsersFailure(error.message));
+        });
+    };
+  };
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
     const selectedEmployee = users.find(
@@ -84,6 +101,8 @@ const navigate = useNavigate();
     setSelectedEmployees(newItems); 
   };
   useEffect(() => {
+    dispatch(fetchData(config)); 
+    dispatch(fetchUser(config));
     const names = selectedEmployees.map(obj => obj.id);
      console.log("selected", names);
   }, [selectedEmployees]);
