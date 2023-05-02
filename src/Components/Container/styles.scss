@@ -200,7 +200,7 @@
           
             input{
                 flex: 1;
-                // width: 100%;
+                width: 100%;
                 border:none;
                 font-size: 24px;
                 padding: 10.8px 0px 10px 42px;
@@ -333,7 +333,8 @@
     }
     
     .sop-container-row input{
-        width: 94%;
+      width: -webkit-fill-available !important;
+
     }
      .card-sop .row .circle-box {
     width: 0% !important;
