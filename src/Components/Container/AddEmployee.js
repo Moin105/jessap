@@ -160,7 +160,7 @@ const AddEmployee = ({isAuthenticated}) => {
                 <Field as={Input} type="first_name" name="first_name" id="first_name" />
               </FormControl>
               <FormControl>
-                <FormLabel htmlFor="sur_name">SurName</FormLabel>
+                <FormLabel htmlFor="sur_name">Surname</FormLabel>
                 <Field as={Input} type="sur_name" name="sur_name" id="sur_name" />
               </FormControl>     
             </div>

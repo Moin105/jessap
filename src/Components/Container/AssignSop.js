@@ -185,7 +185,7 @@ const navigate = useNavigate();
               <FormControl className="group">
                 <FormLabel htmlFor="first_name">Select Employee</FormLabel>
                 <Select variant='filled'  value="" onChange={handleSelectChange}>
-                  <option value={selectedEmployees}>Select an employee</option>
+                  <option value={selectedEmployees}>Select an Employee</option>
                   {users?.map((employee) => (
                     <option key={employee.id} value={employee.id}>
                       {employee.first_name}
@@ -194,7 +194,7 @@ const navigate = useNavigate();
                 </Select>
               </FormControl>
             </div>
-            <h4>Selected employees:{" "}</h4>
+            <h4>Selected Employees:{" "}</h4>
           <div className="employee-data">  {selectedEmployees.length > 0 && (
               <>
                 {selectedEmployees?.map((employed,index) => {

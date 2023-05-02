@@ -64,9 +64,9 @@ function SideBar({ show, setShow }) {
             </figure>
             <div className="btn-container">
      { role == "employee"  ? <><Link to='/home'> <Tab name="SOPs" icon={setting} /></Link> <Tab name="Support" icon={whatsapp} /></> :<>  <Link to='/home'> <Tab name="SOPs" icon={setting} /></Link>
-             <Link to='/users'> <Tab name="USERS" icon={user} /></Link>
+             <Link to='/users'> <Tab name="Users" icon={user} /></Link>
               <Tab name="Support" icon={whatsapp} />
-              <Link to="/addemployee"><Tab name="Add employee" icon={user} /></Link>
+              <Link to="/addemployee"><Tab name="Add Employee" icon={user} /></Link>
              <Link to="/assignsop"><Tab name="Assign SOP" icon={user} /></Link></>}
              <button onClick={logouts} >logout</button>
                 
@@ -83,9 +83,9 @@ function SideBar({ show, setShow }) {
                   </figure>
                   <div className="btn-container">
                   { role == "employee"  ? <><Link to='/home'> <Tab name="SOPs" icon={setting} /></Link> <Tab name="Support" icon={whatsapp} /></> :<>  <Link to='/home'> <Tab name="SOPs" icon={setting} /></Link>
-             <Link to='/users'> <Tab name="USERS" icon={user} /></Link>
+             <Link to='/users'> <Tab name="Users" icon={user} /></Link>
               <Tab name="Support" icon={whatsapp} />
-              <Link to="/addemployee"><Tab name="Add employee" icon={user} /></Link>
+              <Link to="/addemployee"><Tab name="Add Employee" icon={user} /></Link>
              <Link to="/assignsop"><Tab name="Assign SOP" icon={user} /></Link></>}
               <button onClick={logouts} >logout</button>
                   </div>
@@ -99,9 +99,9 @@ function SideBar({ show, setShow }) {
                 </figure>
                 <div className="btn-container">
                 { role == "employee"  ? <><Link to='/home'> <Tab name="SOPs" icon={setting} /></Link> <Tab name="Support" icon={whatsapp} /></> :<>  <Link to='/home'> <Tab name="SOPs" icon={setting} /></Link>
-             <Link to='/users'> <Tab name="USERS" icon={user} /></Link>
+             <Link to='/users'> <Tab name="Users" icon={user} /></Link>
               <Tab name="Support" icon={whatsapp} />
-              <Link to="/addemployee"><Tab name="Add employee" icon={user} /></Link>
+              <Link to="/addemployee"><Tab name="Add Employee" icon={user} /></Link>
              <Link to="/assignsop"><Tab name="Assign SOP" icon={user} /></Link></>}
               <button onClick={logouts} >logout</button>
                 </div>
