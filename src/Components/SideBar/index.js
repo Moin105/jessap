@@ -68,7 +68,7 @@ function SideBar({ show, setShow }) {
               <Tab name="Support" icon={whatsapp} />
               <Link to="/addemployee"><Tab name="Add Employee" icon={user} /></Link>
              <Link to="/assignsop"><Tab name="Assign SOP" icon={user} /></Link></>}
-             <button onClick={logouts} >logout</button>
+             <button onClick={logouts} >Logout</button>
                 
             </div>
           </div>
@@ -87,7 +87,7 @@ function SideBar({ show, setShow }) {
               <Tab name="Support" icon={whatsapp} />
               <Link to="/addemployee"><Tab name="Add Employee" icon={user} /></Link>
              <Link to="/assignsop"><Tab name="Assign SOP" icon={user} /></Link></>}
-              <button onClick={logouts} >logout</button>
+              <button onClick={logouts} >Logout</button>
                   </div>
                 </div>
               </div>
@@ -103,7 +103,7 @@ function SideBar({ show, setShow }) {
               <Tab name="Support" icon={whatsapp} />
               <Link to="/addemployee"><Tab name="Add Employee" icon={user} /></Link>
              <Link to="/assignsop"><Tab name="Assign SOP" icon={user} /></Link></>}
-              <button onClick={logouts} >logout</button>
+              <button onClick={logouts} >Logout</button>
                 </div>
               </div>
             </div>

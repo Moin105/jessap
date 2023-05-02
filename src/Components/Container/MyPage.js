@@ -150,7 +150,7 @@ useEffect(() => {
           <h3>{page.pageTitle}</h3>
           <HtmlViewer html={page.pageContent} />
           </div>  
-          <button   className='button' onClick={() => {handleEditButtonClick(page);}}>edit</button></>}
+          <button   className='button' onClick={() => {handleEditButtonClick(page);}}>Edit</button></>}
         </div>
       ))}
     </Carousel>
