@@ -203,7 +203,7 @@ function Sops() {
             <div className='sop-container-row'>
               <div className='input-container'>
                 <span><CgSearch/></span>
-                <input type="text" placeholder='search SOP' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+                <input type="text" placeholder='Search SOPs' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
                 {/* <input type='text'  value={searchQuery} onChange={(e) =>{ setSearchQuery(e.target.value);console.log("e",searchQuery)}} placeholder='Search SOPs'/> */}
               </div>
               <Link to="/addsops"><button>Add SOP</button></Link>  
