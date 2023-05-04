@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
+import {BiShow} from 'react-icons/bi'
 import "./styles.css";
 import { useDispatch, useSelector } from 'react-redux'
 import Cookies from 'js-cookie';
@@ -44,8 +45,13 @@ export const signup = async (formData) => {
 const Signup = ({isAuthenticated}) => {
   const navigate = useNavigate();
 
-
- 
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [error, setError] = useState('');
+  
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswords, setShowPasswords] = useState(false);
+ const [companyError,setCompanyError] = useState('');
   const location = useLocation();
   
   // const GoogleLoginButton = () => {
@@ -87,6 +93,34 @@ var nameArray = ['','']
 //  }, [auth])
  
   const handleLogin = async (values, { setSubmitting }) => {
+    if (!values.password ) {
+      setPasswordError('Password is required');
+      console.log(passwordError)
+    } else {
+      setPasswordError('');
+    }
+    if(!values.company ){
+      setCompanyError('Company is required');
+    }
+    if(values.password.length < 6){ 
+      setPasswordError('Password must be 6 characters long');
+    }else{setPasswordError('')} 
+    if(values.password !== values.c_password){
+      setPasswordError('Confirm Password must be same as password');
+    }else{
+      setPasswordError('');
+    }
+    if (!values.email) {
+      setEmailError('Email is required');
+    } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+      setEmailError('Invalid email address');
+      console.log(emailError)
+    } else {
+      setEmailError('');
+    }
+    if (values.password && values.email && values.company && values.password.length >= 6 && values.password === values.c_password) {
+      console.log('Form submitted successfully');
+  
     try {
       const response = await signup(values);
       const {password , email} = values;
@@ -139,9 +173,13 @@ var nameArray = ['','']
       // Reset form and set submitting to false
     //   setSubmitting(false);
     } catch (error) {
+      if(error){
+        setError('Email already exist');
+        console.log(error)
+      }
       // Handle login error
     //   setSubmitting(false);
-    }
+    }}
   };
 
   return (
@@ -160,7 +198,7 @@ var nameArray = ['','']
                 <Field as={Input} type="first_name" name="first_name" id="first_name" />
               </FormControl>
               <FormControl className="group"> 
-                <FormLabel htmlFor="sur_name">Surnsame</FormLabel>
+                <FormLabel htmlFor="sur_name">Surname</FormLabel>
                 <Field as={Input} type="sur_name" name="sur_name" id="sur_name" />
               </FormControl>     
             </div>
@@ -173,10 +211,10 @@ var nameArray = ['','']
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <Field
                   as={Input}
-                  type="password"
+                  type={showPassword ?"text": "password"}
                   name="password"
                   id="password"
-                />
+                /><span onClick={()=>{setShowPassword(!showPassword)}}><BiShow/></span>
               </FormControl>
             </div>
             <div className="dispo">
@@ -185,13 +223,13 @@ var nameArray = ['','']
                 <FormLabel htmlFor="c_password">Confirm Password</FormLabel>
                 <Field
                   as={Input}
-                  type="password"
+                  type={showPasswords ?"text": "password"}
                   name="c_password"
                   id="c_password"
-                />
+                /> <span onClick={()=>{setShowPasswords(!showPasswords)}}><BiShow/></span>
               </FormControl>
               <FormControl className="group">
-                <FormLabel htmlFor="company">company</FormLabel>
+                <FormLabel htmlFor="company">Company</FormLabel>
                 <Field as={Input} type="company" name="company" id="company" />
               </FormControl>
 

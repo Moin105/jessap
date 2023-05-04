@@ -86,7 +86,18 @@ const MyCarousel = ({ objectData }) => {
       console.log(pages)
     };
 useEffect(() => {
-    handleSaveButtonClick()
+  const updatedPages = pages.map((page) =>
+  page.id === selectedPage?.id
+    ? { ...page, pageContent: editorContent }
+    : page
+);
+setPages(pages =>{
+  pages = updatedPages;
+  return pages;
+});
+//   setPages(updatedPages);
+//   setSelectedPage(null);
+console.log(pages)
 }, [editorContent])
 
   return (

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import "./styles.css";
+import {BiShow} from 'react-icons/bi';
 import { useDispatch, useSelector } from 'react-redux'
 // import store from '../../app/store'
 import Cookies from 'js-cookie';
@@ -42,7 +43,10 @@ export const login = async (formData) => {
 };
 const Signin = ({onLogin}) => {
   const navigate = useNavigate();
-
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   // Function to handle route change
   const handleRouteChange = (route) => {
     // Use the navigate() function to navigate to the specified route
@@ -59,8 +63,26 @@ const Signin = ({onLogin}) => {
     handleRouteChange('/home')
   }
  }, [])
- 
+
   const handleLogin = async (values, { setSubmitting }) => {
+    // event.preventDefault();
+    if (!values.password) {
+      setPasswordError('Password is required');
+      console.log(passwordError)
+    } else {
+      setPasswordError('');
+    }
+    if (!values.email) {
+      setEmailError('Email is required');
+    } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+      setEmailError('Invalid email address');
+      console.log(emailError)
+    } else {
+      setEmailError('');
+    }
+    if (values.password && values.email) {
+      console.log('Form submitted successfully');
+  
     try {
       const response = await login(values);
       console.log("marijuana",response)
@@ -82,8 +104,12 @@ const Signin = ({onLogin}) => {
       setSubmitting(false);
       handleRouteChange('/home')
     } catch (error) {
-      setSubmitting(false);
+      if(error){
+       setError(error.message) 
+      setSubmitting(false);}
     }
+  }
+
   };
   const [userData ,setUserData]=useState({email:'',password:''})
   const signInWithGoogle = () => {
@@ -159,10 +185,10 @@ const Signin = ({onLogin}) => {
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <Field
                   as={Input}
-                  type="password"
+                  type={showPassword ?"text": "password"}
                   name="password"
                   id="password"
-                />
+                /><span onClick={()=>{setShowPassword(!showPassword)}}><BiShow/></span>
               </FormControl>
             <button style={{margin:"10px 0px"}} type="submit" disabled={isSubmitting}>
               {isSubmitting ? 'Logging in' : 'Submit'}
@@ -171,9 +197,9 @@ const Signin = ({onLogin}) => {
         )}
       </Formik>
             <button onClick={signInWithGoogle}>
-                Sign in with Google
+            Continue with Google
             </button>
-        <span>Dont have an account?<Link to="/signup"><p>Sign Up</p></Link></span>
+        <span>Don't have an account?<Link to="/signup"><p>Sign Up</p></Link></span>
     </div>
     </div>
   );

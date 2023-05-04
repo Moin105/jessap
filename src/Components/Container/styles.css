@@ -49,19 +49,14 @@
   padding: 0 !important;
 }
 .container textarea {
-  flex: 1;
   border: none;
   font-size: 18px;
   padding: 10.8px 0px 10px 22px;
   border-radius: 7px;
   background: #F1F1F2;
-  font-size: 18px;
   font-family: "SF Pro Display";
   color: #848489;
   outline: none;
-  height: 130px;
-  width: -webkit-fill-available;
-  margin: 0 auto;
 }
 .container .container-assign {
   display: flex;
@@ -73,6 +68,15 @@
   width: 50%;
   text-align: left;
   align-items: flex-start;
+}
+.container .container-assign .group div {
+  position: relative;
+}
+.container .container-assign .group div span {
+  font-size: 20px;
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
 }
 .container .container-assign .group div .chakra-select__icon-wrapper {
   display: none;
@@ -121,6 +125,9 @@
 .container .container-sop .form .sikna .group label {
   padding: 0;
   font-size: 18px;
+}
+.container .container-sop .form .sikna .group .text-area {
+  height: 150px !important;
 }
 .container .container-sop .form .sikna label {
   text-align: left;
@@ -198,8 +205,10 @@
   height: 100%;
   min-height: 65%;
   display: flex;
+  align-items: center;
   margin-top: 30px;
   width: 100%;
+  justify-content: center;
 }
 .container .container-sop .card-sop .row {
   display: flex;

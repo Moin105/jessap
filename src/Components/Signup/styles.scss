@@ -11,7 +11,18 @@ input{
 }
 .dispo{
     display: flex;
+    flex-direction: column;
     gap: 20px;
+    position: relative;
+    div{
+        position: relative;
+        span{
+            font-size: 20px;
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+        }
+    }
 }
 
 label{
@@ -56,4 +67,5 @@ button{
   .dispo{
     flex-direction: column;
   }
+
   }

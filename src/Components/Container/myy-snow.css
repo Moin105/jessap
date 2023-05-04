@@ -85,7 +85,10 @@
     font-size: 18px;
     font-family: 'SF Pro Display';
   }
-
+ .ql-editor img{
+  width: 300px !important;
+  object-fit: contain !important;
+ }
   .ql-editor ul > li::before {
     content:none;
     font-size: 18px;

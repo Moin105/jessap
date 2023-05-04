@@ -44,12 +44,16 @@
   margin: 0 auto;
   align-items: center;
   justify-content: space-between;
+  /* Hide scrollbar for IE, Edge and Firefox */
 }
 .rowerist .row .page-content .clisco {
   display: flex;
   width: 100%;
   flex-direction: column;
+  max-height: -moz-fit-content;
+  max-height: fit-content;
   text-align: left;
+  overflow-y: scroll;
 }
 .rowerist .row .page-content .clisco .content {
   margin: 0;
@@ -71,6 +75,13 @@
 }
 .rowerist .row .page-content .clisco .sd li {
   text-align: initial;
+}
+.rowerist .row .page-content .clisco::-webkit-scrollbar {
+  display: none;
+}
+.rowerist .row .page-content .clisco {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 .rowerist .row .page-content .button {
   margin: 10px 0px 10px 10px;

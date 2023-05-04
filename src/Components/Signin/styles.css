@@ -32,6 +32,13 @@ label {
   display: flex;
   text-align: left;
   flex-direction: column;
+  position: relative;
+}
+.group span {
+  font-size: 20px;
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
 }
 
 button {

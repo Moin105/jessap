@@ -4,6 +4,8 @@ import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import "./styles.css";
 import { useDispatch, useSelector } from 'react-redux'
 import Cookies from 'js-cookie';
+import {BiShow} from 'react-icons/bi'
+
 import { addEmployeeFailure,addEmployeeRequest,addEmployeeSuccess } from "../../features/counter/employeeAddActions";
 import { useNavigate } from 'react-router-dom';
 // import { loginSuccess } from "../../features/counter/authActions";
@@ -11,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 // import { signupSuccess } from "../../features/counter/authActions";
 // import { registerUser } from '../features/auth/authActions'
 // import { registerUser } from "../../features/auth/authAction";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 // import { signupSuccess } from '../redux/actions/authActions';
 // import api from '../../api/api'
 export const addEmploye =async (employee, token) => {
@@ -38,6 +40,12 @@ export const addEmploye =async (employee, token) => {
 };
 const AddEmployee = ({isAuthenticated}) => {
   const navigate = useNavigate();
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [nameError,setNameError]=useState('');
+  const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswords, setShowPasswords] = useState(false);
 
   // Function to handle route change
   const handleRouteChange = (route) => {
@@ -96,8 +104,39 @@ const AddEmployee = ({isAuthenticated}) => {
     return str.includes('Employee Added Successfully');
   };
   const handleSubmit= async (values,) => {
-    
-      console.log(values)
+    if (!values.password ) {
+      setPasswordError('Password is required');
+      console.log(passwordError)
+    } else {
+      setPasswordError('');
+    }
+    if(values.password.length < 6){ 
+      setPasswordError('Password must be 6 characters long');
+    }else{setPasswordError('')} 
+    if(values.password !== values.c_password){
+      setPasswordError('Confirm Password must be same as password');
+    }else{
+      setPasswordError('');
+    }
+    if(!values.first_name && !values.sur_name){
+      setNameError('Name is required');
+    }else{
+      setNameError('');
+    }
+    if (!values.email) {
+      setEmailError('Email is required');
+    } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+      setEmailError('Invalid email address');
+      console.log(emailError)
+    } else {
+      setEmailError('');
+    }
+    if (values.password && values.email && values.first_name && values.sur_name && values.password === values.c_password) {
+      console.log('Form submitted successfully');
+     
+      const { c_password, ...formValues } = values;
+      console.log(formValues)
+      
       // return (dispatch) => {
         dispatch(addEmployeeRequest());
         console.log("response1",values)
@@ -107,9 +146,9 @@ const AddEmployee = ({isAuthenticated}) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${Cookies.get("token")}`,
           },
-          body: JSON.stringify(values),
+          body: JSON.stringify(formValues),
         })
-          .then((response) => {return response.json();console.log("response",response)})
+          .then((response) => {return response.json();})
           .then((response) => {
             console.log("data",response)
             dispatch(addEmployeeSuccess(response));
@@ -142,14 +181,14 @@ const AddEmployee = ({isAuthenticated}) => {
     
       // // Reset form and set submitting to false
       // setSubmitting(false);
-
+        }
   };
 
   return (
     <div className="sadie">
    <div className="contaiers">
       <Formik
-        initialValues={{ first_name:'',sur_name:'',email: '', password: '', role: 'employee'}}
+        initialValues={{ first_name:'',sur_name:'',email: '',c_password:'', password: '', role: 'employee'}}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
@@ -173,10 +212,20 @@ const AddEmployee = ({isAuthenticated}) => {
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <Field
                   as={Input}
-                  type="password"
+                  type={showPassword ?"text": "password"}
                   name="password"
                   id="password"
-                />
+                /><span onClick={()=>{setShowPassword(!showPassword)}}><BiShow/></span>
+              </FormControl>
+              
+            <FormControl className="group" mt={4}>
+                <FormLabel htmlFor="c_password">Confirm Password</FormLabel>
+                <Field
+                  as={Input}
+                  type={showPasswords ?"text": "password"}
+                  name="c_password"
+                  id="c_password"
+                /><span onClick={()=>{setShowPasswords(!showPasswords)}}><BiShow/></span>
               </FormControl>
             </div>
             <button  style={{margin:"10px 0px"}} type="submit" disabled={isSubmitting}>

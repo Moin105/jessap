@@ -209,11 +209,12 @@ function Sops() {
               <Link to="/addsops"><button>Add SOP</button></Link>  
             </div>
             <div className='card-sop'>
-            {filteredSops.length > 0
+            {filteredSops.length 
   ? <>{filteredSops.map((sops,index) => <Rowsop data={sops} key={index}  icon={setting}title={sops.title} description={sops.description}/>)}</>
   : searchQuery && filteredSops.length === 0
     ? <p>No SOPs found.</p>
-    : <>{sop.data.map((sops,index) => <Rowsop data={sops} key={index}  icon={setting}title={sops.title} description={sops.description}/>)}</>}
+    : <>{sop.data.length > 0 ?
+    sop.data.map((sops,index) => <Rowsop data={sops} key={index}  icon={setting}title={sops.title} description={sops.description}/>):'No SOP Added'}</>}
             </div>
            </div>:<div className='container-sop'>
             <h3>SOPs</h3>

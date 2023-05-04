@@ -20,11 +20,12 @@ import { FiChevronDown } from "react-icons/fi";
 function SopAdd({ show, setShow }) {
   const [content, setContent] = useState(null);
   const [sopformat, setSopFormat] = useState({});
-  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(0);
   const [selectedValue, setSelectedValue] = useState("Single SOP");
   const [pages, setPages] = useState([]);
   const [showFields, setShowFields] = useState(false);
   const [values,setValues] = useState({})
+  const [textvalues,setTextValues] = useState({})
   const [pageTitle, setPageTitle] = useState("");
   // new formation
   const [showEditor ,setShowEditor] = useState(false)
@@ -49,30 +50,36 @@ function SopAdd({ show, setShow }) {
 
     // const values = {};
     const inputs = myInputs.current.querySelectorAll("input");
+    const textareas = myInputs.current.querySelectorAll("textarea");
     inputs.forEach((input) => {
       values[input.name] = input.value;
     });
-    if(values.title && values.description !== "" ){
+    textareas.forEach((textarea) => {
+      textvalues[textarea.name] = textarea.value;
+    })
+    console.log("values", values, textvalues,content);
+    const sopContent = content;
+    console.log("values", values, textvalues,sopContent);
+    if(values.title && textareas.description !== "" ){
       setShowEditor(true)
       setIsDisabled(true)
     }else{
       setShowEditor(false)
       setIsDisabled(false) 
     }
-    console.log(values);
-    // for single sop 
-    setSopFormat(
-      {
-        title: values.title,
-            description: values.description,
-            pages: [{ pageTitle: values.title, pageNumber: pageNumber, pageContent: content }],
-      }
-    )
+
+      console.log(values,textvalues,content,sopContent);
+    // console.log("khan painchod", sopformat);
   };
   useEffect(() => {
-    console.log("qwertyuiolkjhgfds", content);
+if(!isChecked){ setSopFormat({
+      title: values.title,
+      description: textvalues.description,
+      pages: [{ pageTitle: values.title, pageNumber: 1, pageContent: content }],
+ 
+    })}
+    console.log("qwertyuiolkjhgfds", sopformat);
   }, [content]);
-  useEffect(() => {}, []);
 
   // useEffect(() => {
   //   if(pages.length <= 0){
@@ -118,15 +125,9 @@ function SopAdd({ show, setShow }) {
   const handleLogin = async (e) => {
     e.preventDefault();
     console.log("qwertyyuiu", sopformat);
-    // setSopFormat({
-    //   title: values.title,
-    //   description: values.description,
-    //   pages: [{ pageTitle: values.title, pageNumber: pageNumber, pageContent: content }],
-    // });
+    const sopContent = content;
+    console.log(values,textvalues,content, "firstPage");
     console.log("khan painchod", sopformat);
-    // setTimeout(() => {
-    //   console.log("khan painchod", sopformat);
-    // }, 3000);
     postData(sopformat)
       .then((res) => {
         console.log("safweewg", res);
@@ -139,35 +140,28 @@ function SopAdd({ show, setShow }) {
         // Handle successful API call
       })
       .catch((error) => {
-        // Handle errors
       });
   };
+
   const addNewPage = async(e) => {
     getValues(e)
     e.preventDefault();
     const inputs = myInputs.current.querySelectorAll("input");
-    console.log("mir",values)
-    const newPage = {
-          pageTitle: values.pagetitle,
-          pageNumber: pageNumber,
-          pageContent: content,
-        };
-        setPages([...pages, newPage]);
-    setPageNumber(pageNumber + 1);
-    console.log("sigma",newPage,pages)
+    console.log("mir",values,textvalues,content)
+
+    setPageNumber(pageNumber =>{return pageNumber + 1});
+
     inputs.forEach((input) => {
+      console.log("input",input.name)
       if (input.name === "pagetitle") {
-        input.value = "";
+        
       }
     });
+
     setContent(null);
-       setSopFormat({
-      title: values.title,
-      description: values.description,
-      pages: pages,
-    });
     handleClearEditor();
   }
+
   const multipleHandleSubmit = async(e) => {
     e.preventDefault();
     console.log("qwertyyuiu",sopformat);
@@ -183,113 +177,43 @@ function SopAdd({ show, setShow }) {
       // Handle successful API call
     })
     .catch((error) => {
-      // Handle errors
     });
   }
-  // const handleLoginMultiple = async (values, ) => {
-  //   // setPageNumber(pageNumber + 1)
-  //   // console.log("mir",formik.values);
-  //   console.log("mir",values)
-  //   // console.log("qwertyyuiu", values, content);
-  //   if(values.pageTitle == ("" ||undefined)){
-
-  //   }else {
-  //     setPageTitle(values.pageTitle)
-  //   }
-  //   const newPage = {
-  //     pageTitle: pageTitle,
-  //     pageNumber: pageNumber,
-  //     pageContent: content,
-  //   };
-  //   setPages([...pages, newPage]);
-  //   setPageNumber(pageNumber + 1);
-  //   console.log("sigma",newPage,pages)
-  //   // formik.resetForm();
-  //   setSopFormat({
-  //     title: values.title,
-  //     description: values.description,
-  //     pages: pages,
-  //   });
-  //   console.log("khan painchod", sopformat);
-  //   // setTimeout(() => {
-  //   //   console.log("khan painchod", sopformat);
-  //   // }, 3000);
-  //   // console.log(formik)
-  //   // formik.resetForm();
-  //   // postData({
-  //   //   title: values.title,
-  //   //   description: values.description,
-  //   //   pages: pages,
-  //   // })
-  //   //   .then((res) => {
-  //   //     console.log("safweewg", res);
-  //   //     const isPresent = checkForSuccessfull(res.message);
-  //   //     //   "Company Registered successfully."
-  //   //     console.log(isPresent);
-  //   //     if (isPresent) {
-  //   //       handleRouteChange("/home");
-  //   //     }
-  //   //     // Handle successful API call
-  //   //   })
-  //   //   .catch((error) => {
-  //   //     // Handle errors
-  //   //   });
-  // };
-  // const handleLoginMultiples = async (values) => {
-  //   // setPageNumber(pageNumber + 1)
-  //   // console.log("qwertyyuiu", values, content);
-  //   // const newPage = {
-  //   //   pageTitle: values.pageTitle,
-  //   //   pageNumber: pageNumber,
-  //   //   pageContent: content,
-  //   // };
-  //   // setPages([...pages, newPage]);
-  //   // setPageNumber(pageNumber + 1);
-  //   // console.log("sigma",newPage,pages)
-  //   // // formik.resetForm();
-  //   // setSopFormat({
-  //   //   title: values.title,
-  //   //   description: values.description,
-  //   //   pages: pages,
-  //   // });
-  //   // console.log("khan painchod", sopformat);
-  //   // setTimeout(() => {
-  //   //   console.log("khan painchod", sopformat);
-  //   // }, 3000);
-  //   // console.log(formik)
-  //   // formik.resetForm();
-  //   postData({
-  //     title: values.title,
-  //     description: values.description,
-  //     pages: pages,
-  //   })
-  //     .then((res) => {
-  //       console.log("safweewg", res);
-  //       const isPresent = checkForSuccessfull(res.message);
-  //       //   "Company Registered successfully."
-  //       console.log(isPresent);
-  //       if (isPresent) {
-  //         handleRouteChange("/home");
-  //       }
-  //       // Handle successful API call
-  //     })
-  //     .catch((error) => {
-  //       // Handle errors
-  //     });
-  // };
-  // const multipleHandleSubmit = (values) => {
-  //   console.log("Submitted values:", values);
-
-  // };
-
-  // const handleReset = () => {
-  //   formik.resetForm();
-  // };
+  useEffect(() => {
+    if (isChecked) { const newPage = {
+         pageTitle: values.pagetitle,
+         pageNumber: pageNumber,
+         pageContent: content,
+       };
+       console.log(newPage)
+       // setPages([...pages, newPage]);
+if(sopformat.pages.length == 1 && sopformat.pages[0].pageNumber == pageNumber ){
+  console.log("maa ka bharosa ",sopformat.pages.length)
+    {
+      setSopFormat({
+        title: values.title,
+        description: textvalues.description,
+        pages: [{ pageTitle: values.title, pageNumber: 1, pageContent: content }],
+   
+      })}
+    } else    {setSopFormat( prevState =>{
+        prevState =  {
+         title: values.title,
+         description: textvalues.description,
+         pages: [...sopformat.pages, newPage]
+         }
+         return prevState}
+       );}
+       console.log(sopformat.pages);}
+       // setSopFormat({title: values.pagetitle,
+       //     description: textvalues.description,
+       //     pages:[],})
+     },[pageNumber])
+  
   return (
     <React.Fragment>
       <div className="container">
         <Header show={show} setShow={setShow} />
-
         <div
           className="container-sop"
           style={{ width: "100%", alignItems: "center" }}
@@ -303,10 +227,11 @@ function SopAdd({ show, setShow }) {
               </div>
               <div className="group">
                 <label>SOP Description</label>
-                <input
-                  type="text"
+                <textarea
+                  type="text" 
                   placeholder="SOP Description"
                   name="description"
+                  className="text-area"
                   disabled={isDisabled}
                 />
               </div>
@@ -352,7 +277,7 @@ function SopAdd({ show, setShow }) {
                 fontSize: "14px",
                 width: "95%",
               }}
-              onClick={handleLogin}
+              onClick={(e)=>handleLogin(e)}
             >
               Finalise SOP
             </button>}</> :<>
@@ -371,144 +296,6 @@ function SopAdd({ show, setShow }) {
             </> 
             }
           </form>
-          {/* {selectedValue !== ("Multiple SOP") && (
-            <Formik
-              initialValues={{
-                title: "",
-                description: "",
-                pageTitle: "", 
-                pageNumber: "1",
-                pageContent: content 
-              }}
-              onSubmit={handleLogin}
-            >
-              {({ isSubmitting }) => (
-                <Form className="form">
-                  <div className="sikna">
-                    <FormControl>
-                      <FormLabel htmlFor="title">Title</FormLabel>
-                      <Field as={Input} type="title" name="title" id="title" />
-                    </FormControl>
-                    <FormControl style={{ position: "relative" }}>
-                      <FormLabel htmlFor="title">Sop</FormLabel>
-                      <Select
-                        value={selectedValue}
-                        onChange={handleSelectChange}
-                      >
-                        <option value="">Select SOP Method</option>
-                        <option value="Single SOP">Single SOP</option>
-                        <option value="Multiple SOP">Multiple SOP</option>
-                      </Select>
-                    </FormControl>
-                  </div>
-                  <FormControl
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <FormLabel htmlFor="description">Description</FormLabel>
-                    <Field as="textarea" id="description" name="description" />
-                  </FormControl>
-                  <Editor setSop={setContent} contents={content} />
-                  <button
-                    style={{
-                      margin: "10px 0px",
-                      maxWidth: "320px",
-                      width: "95%",
-                    }}
-                    type="submit"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "Loading..." : "Submit"}
-                  </button>
-                </Form>
-              )}
-            </Formik>
-          )}
-          {selectedValue == "Multiple SOP" && (
-            <Formik
-              initialValues={{
-                title: "",
-                description: "",
-                pages: [
-                  { pageTitle: "", pageNumber: "1", pageContent: content },
-                ],
-              }}
-              onSubmit={handleLoginMultiple}
-            >
-              {({ isSubmitting }) => (
-                <Form className="form">
-                  <div className="sikna">
-              {showFields  &&    <FormControl>
-                      <FormLabel htmlFor="title">Title</FormLabel>
-                      <Field as={Input} type="title" name="title" id="title" />
-                    </FormControl>}
-                    <FormControl style={{ position: "relative" }}>
-                      <FormLabel htmlFor="title">Sop</FormLabel>
-                      <Select
-                        value={selectedValue}
-                        onChange={handleSelectChange}
-                      >
-                        <option value="">Select SOP Method</option>
-                        <option value="Single SOP">Single SOP</option>
-                        <option value="Multiple SOP">Multiple SOP</option>
-                      </Select>
-                    </FormControl>
-                  </div>
-                  <div className="sikna">
-                    {" "}
-                    <FormControl>
-                      <FormLabel htmlFor="pageTitle">Page Title</FormLabel>
-                      <Field
-                        as={Input}
-                        type="pageTitle"
-                        name="pageTitle"
-                        id="pageTitle"
-                      />
-                    </FormControl>
-                  </div>
-                  {showFields  &&        <FormControl
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <FormLabel htmlFor="description">Description</FormLabel>
-                    <Field as="textarea" id="description" name="description" />
-                  </FormControl>}
-                  <Editor setSop={setContent} contents={content} />
-                  <div style={{display: "flex",justifyContent: "flex-end"}}>
-
-                      <button
-                        style={{
-                          margin: "10px 0px",
-                          maxWidth: "145px",
-                          fontSize:'14px',
-                          width: "95%",
-                        }}
-                        onClick={handleLoginMultiple}
-                      >
-                        Add New Page
-                      </button>
-                  <button
-                    style={{
-                      margin: "10px 0px",
-                      maxWidth: "145px",
-                      fontSize:'14px',
-                      width: "95%",
-                    }}
-                    type="submit"
-                    disabled={isSubmitting}
-                  >
-                    Submit
-                  </button>
-                  </div>
-                  
-                </Form>
-              )}
-            </Formik>
-          )} */}
         </div>
       </div>
     </React.Fragment>

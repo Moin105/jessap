@@ -54,7 +54,9 @@
             display: flex;
             width: 100%;
             flex-direction: column;
+            max-height: fit-content;
             text-align: left;
+            overflow-y: scroll;
             .heading{
    
             }
@@ -80,6 +82,15 @@
                 }
             }
          }
+         .clisco::-webkit-scrollbar {
+            display: none;
+          }
+          
+          /* Hide scrollbar for IE, Edge and Firefox */
+          .clisco {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+          }
          .button{
             margin: 10px 0px 10px 10px;
             max-width: 145px;
