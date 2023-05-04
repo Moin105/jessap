@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
+import {AiFillEye,AiFillEyeInvisible} from 'react-icons/ai';
+
 import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import {BiShow} from 'react-icons/bi'
 import "./styles.css";
@@ -214,25 +216,25 @@ var nameArray = ['','']
                   type={showPassword ?"text": "password"}
                   name="password"
                   id="password"
-                /><span onClick={()=>{setShowPassword(!showPassword)}}><BiShow/></span>
+                /><span onClick={()=>{setShowPassword(!showPassword)}}>{showPassword?<AiFillEyeInvisible/>:<AiFillEye/>}</span>
               </FormControl>
             </div>
             <div className="dispo">
                  
-              <FormControl className="group" mt={4}>
+             
+              <FormControl className="group">
+                <FormLabel htmlFor="company">Company</FormLabel>
+                <Field as={Input} type="company" name="company" id="company" />
+              </FormControl>
+ <FormControl className="group" mt={4}>
                 <FormLabel htmlFor="c_password">Confirm Password</FormLabel>
                 <Field
                   as={Input}
                   type={showPasswords ?"text": "password"}
                   name="c_password"
                   id="c_password"
-                /> <span onClick={()=>{setShowPasswords(!showPasswords)}}><BiShow/></span>
+                /> <span onClick={()=>{setShowPasswords(!showPasswords)}}>{showPassword?<AiFillEyeInvisible/>:<AiFillEye/>}</span>
               </FormControl>
-              <FormControl className="group">
-                <FormLabel htmlFor="company">Company</FormLabel>
-                <Field as={Input} type="company" name="company" id="company" />
-              </FormControl>
-
             </div>
             <button style={{margin:"10px 0px"}} type="submit" disabled={isSubmitting}>
               {isSubmitting ? 'Logging in...' : 'Submit'}

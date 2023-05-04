@@ -3,6 +3,8 @@ import { Formik, Form, Field } from "formik";
 import { FormControl, FormLabel, Input, Button } from "@chakra-ui/react";
 import "./styles.css";
 import {BiShow} from 'react-icons/bi';
+import {AiFillEye,AiFillEyeInvisible} from 'react-icons/ai';
+import {FcGoogle} from 'react-icons/fc'
 import { useDispatch, useSelector } from 'react-redux'
 // import store from '../../app/store'
 import Cookies from 'js-cookie';
@@ -188,7 +190,7 @@ const Signin = ({onLogin}) => {
                   type={showPassword ?"text": "password"}
                   name="password"
                   id="password"
-                /><span onClick={()=>{setShowPassword(!showPassword)}}><BiShow/></span>
+                /><span onClick={()=>{setShowPassword(!showPassword)}}>{showPassword?<AiFillEyeInvisible/>:<AiFillEye/>}</span>
               </FormControl>
             <button style={{margin:"10px 0px"}} type="submit" disabled={isSubmitting}>
               {isSubmitting ? 'Logging in' : 'Submit'}
@@ -196,10 +198,16 @@ const Signin = ({onLogin}) => {
           </Form>
         )}
       </Formik>
-            <button onClick={signInWithGoogle}>
-            Continue with Google
+            <button style={{
+              display:"flex",
+              alignItems:"center",
+              justifyContent:"center",
+              gap:"10px",
+              fontSize:"19px",
+            }} onClick={signInWithGoogle}>
+           <FcGoogle/>  Continue with Google
             </button>
-        <span>Don't have an account?<Link to="/signup"><p>Sign Up</p></Link></span>
+        <span> Don't have an account?<Link to="/signup"><p>Sign Up</p></Link></span>
     </div>
     </div>
   );

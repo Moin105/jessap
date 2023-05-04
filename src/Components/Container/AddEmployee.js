@@ -5,7 +5,7 @@ import "./styles.css";
 import { useDispatch, useSelector } from 'react-redux'
 import Cookies from 'js-cookie';
 import {BiShow} from 'react-icons/bi'
-
+import {AiFillEye,AiFillEyeInvisible} from 'react-icons/ai';
 import { addEmployeeFailure,addEmployeeRequest,addEmployeeSuccess } from "../../features/counter/employeeAddActions";
 import { useNavigate } from 'react-router-dom';
 // import { loginSuccess } from "../../features/counter/authActions";
@@ -215,7 +215,7 @@ const AddEmployee = ({isAuthenticated}) => {
                   type={showPassword ?"text": "password"}
                   name="password"
                   id="password"
-                /><span onClick={()=>{setShowPassword(!showPassword)}}><BiShow/></span>
+                /><span onClick={()=>{setShowPassword(!showPassword)}}>{showPassword?<AiFillEyeInvisible/>:<AiFillEye/>}</span>
               </FormControl>
               
             <FormControl className="group" mt={4}>
@@ -225,7 +225,7 @@ const AddEmployee = ({isAuthenticated}) => {
                   type={showPasswords ?"text": "password"}
                   name="c_password"
                   id="c_password"
-                /><span onClick={()=>{setShowPasswords(!showPasswords)}}><BiShow/></span>
+                /><span onClick={()=>{setShowPasswords(!showPasswords)}}>{showPassword?<AiFillEyeInvisible/>:<AiFillEye/>}</span>
               </FormControl>
             </div>
             <button  style={{margin:"10px 0px"}} type="submit" disabled={isSubmitting}>
