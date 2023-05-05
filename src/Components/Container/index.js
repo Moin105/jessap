@@ -9,16 +9,9 @@ function Container({show,setShow}) {
   const location = useLocation();
   const path = location.pathname;
   const navigate = useNavigate();
-  // Function to handle route change
   const handleRouteChange = (route) => {
-    // Use the navigate() function to navigate to the specified route
     navigate(route);
   };
-  // useEffect(() => {
-  //   if(Cookies.get("token") == ""||undefined || null  && path == "/home"){
-  //     handleRouteChange("/login")
-  //   }
-  // }, [])
   
   return (
     <React.Fragment>

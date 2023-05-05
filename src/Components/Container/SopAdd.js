@@ -13,6 +13,8 @@ import {
   Input,
   Button,
   Select,
+  Spinner,
+  Stack
 } from "@chakra-ui/react";
 import "./styles.css";
 import "../Signin/styles.css";
@@ -31,7 +33,7 @@ function SopAdd({ show, setShow }) {
   const [showEditor, setShowEditor] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
   const myInputs = useRef(null);
   const editor = useRef(null);
   // const handleSelectChange = (event) => {
@@ -103,6 +105,7 @@ function SopAdd({ show, setShow }) {
       console.log("Data posted successfully:", result);
       return result;
     } catch (error) {
+      setIsLoading(false);
       console.error("Error posting data:", error);
       throw error;
     }
@@ -117,7 +120,9 @@ function SopAdd({ show, setShow }) {
     return str.includes("successfull");
   };
   const handleLogin = async (e) => {
+
     e.preventDefault();
+    setIsLoading(true)
     console.log("qwertyyuiu", sopformat);
     const sopContent = content;
     console.log(values, textvalues, content, "firstPage");
@@ -130,10 +135,13 @@ function SopAdd({ show, setShow }) {
         console.log(isPresent);
         if (isPresent) {
           handleRouteChange("/home");
-        }
+          setIsLoading(false);
+        }else{
+        
+        }  setIsLoading(false);
         // Handle successful API call
       })
-      .catch((error) => {});
+      .catch((error) => {   setIsLoading(false)});
   };
 
   const addNewPage = async (e) => {
@@ -157,6 +165,7 @@ function SopAdd({ show, setShow }) {
   };
 
   const multipleHandleSubmit = async (e) => {
+    setIsLoading(true)
     e.preventDefault();
     console.log("qwertyyuiu", sopformat);
     postData(sopformat)
@@ -167,6 +176,10 @@ function SopAdd({ show, setShow }) {
         console.log(isPresent);
         if (isPresent) {
           handleRouteChange("/home");
+          setIsLoading(false);
+
+        }else{
+          setIsLoading(false)
         }
         // Handle successful API call
       })
@@ -289,12 +302,7 @@ function SopAdd({ show, setShow }) {
                 />
               </div>
             )}
-            {/* <div className="group">
-               <label>
-                Title
-               </label>
-               <input type="text" placeholder="title"/>
-            </div> */}
+        
             {!isChecked ? (
               <>
                 {" "}
@@ -313,14 +321,22 @@ function SopAdd({ show, setShow }) {
                 ) : (
                   <button
                     style={{
-                      margin: "10px 0px",
+                      margin: "10px auto",
                       maxWidth: "145px",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      display: "flex",
                       fontSize: "14px",
                       width: "95%",
                     }}
                     onClick={(e) => handleLogin(e)}
                   >
-                    Finalise SOP
+                 {isLoading ? <Stack  direction='row'><Spinner   
+                  speed='0.65s'
+                  // emptyColor='gray.200'
+                  color='blue.500'
+                  style={{width:'20px',height:'20px'}}
+                  size='xl'/></Stack> : "Finalise SOP"}
                   </button>
                 )}
               </>
@@ -344,11 +360,16 @@ function SopAdd({ show, setShow }) {
                     margin: "10px 0px 0px 10px",
                     maxWidth: "145px",
                     fontSize: "14px",
+                    
                     width: "95%",
                   }}
                   onClick={multipleHandleSubmit}
                 >
-                  Finalise SOP
+                   {isLoading ? <Stack  direction='row' spacing={4}><Spinner   
+                  speed='0.65s'
+                  color='blue.500'
+                  style={{margin:"0 auto",width:'15px',height:'15px'}}
+                  size='xl'/></Stack> : "Finalise SOP"}
                 </button>
               </>
             )}

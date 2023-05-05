@@ -108,7 +108,6 @@ useEffect(() => {
           >
             {" "}
             <GrFormPrevious/>
-            {/* <Image src={prev} alt="quote" width={52} height={52} smooth /> */}
           </button>
         )
       }
@@ -129,7 +128,6 @@ useEffect(() => {
           >
             {" "}
             <GrNext/>
-            {/* <Image src={next} alt="quote" width={52} height={52} /> */}
           </button>
         )
       }
@@ -143,14 +141,12 @@ useEffect(() => {
        {page.id == selectedPage?.id ? <>  <div className='clisco'>  
           <h3>{page.pageTitle}</h3>
           <Editor setSop={setEditorContent} onChange={handleEditorChange} contents={editorContent}/>
-          {/* <p className='content' dangerouslySetInnerHTML={{ __html: page.pageContent }} /> */}
           </div>  
           <button   className='button' onClick={() =>{ handleSaveButtonClick(page);fetchData(requestOptions,page.sop_id)}}>Finalise</button></>: 
           <>  <div className='clisco'>  
           <h3>{page.pageTitle}</h3>
           <HtmlViewer html={page.pageContent}  sopId={page.sop_id} userId={user_id}/>
           </div>  
-          {/* <button   className='button' onClick={() => {handleEditButtonClick(page);}}>bc</button> */}
           </>
           }
         </div>

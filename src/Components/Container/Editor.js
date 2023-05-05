@@ -88,26 +88,15 @@ useEffect(() => {
     setSop(content)
     const quillInstance = quillRef.current.getEditor();
     const editorContent = quillInstance.root.innerHTML;
-
-    // Do something with the content (e.g., display in an alert or console.log)
     console.log(editorContent);
-
-    // Clear the editor content
     quillInstance.setContents([]);
   };
   return (
     <div style={{width: "98%",margin: "0px auto"}}> 
       <div>
-        {/* <button onClick={handleBold}>Bold</button>
-        <button onClick={handleItalic}>Italic</button>
-        <button onClick={handleUnderline}>Underline</button>
-        <button onClick={handleUnorderedList}>Unordered List</button>
-        <button onClick={handleOrderedList}>Ordered List</button>
-        <button onClick={handleImageUpload}>Upload Image</button> */}
         <input type="file" accept="image/*" style={{ display: 'none' }} ref={inputRef} onChange={handleFileChange} />
       </div>
       <ReactQuill ref={quillRef} value={contents} onChange={onChange} modules={modules} />
-      {/* <button onClick={handleClick}>Get HTML and Clear Editor</button> */}
 
     </div>
   );

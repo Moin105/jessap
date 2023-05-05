@@ -22,7 +22,6 @@ function EmployeeSopRow({ icon, title, description, data,status }) {
       'Authorization':`Bearer  ${Cookies.get("token")}`
     }
   };
-  // Function to handle route change
   const deleteSop = async () => {
     console.log("naxxr", id);
     fetch(
@@ -33,23 +32,18 @@ function EmployeeSopRow({ icon, title, description, data,status }) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        // body: JSON.stringify(employee),ss
       }
     )
       .then((response) => {
         return response.json();
       })
       .then((response) => {
-        // if (response.message == "SOP deleted successfully") {
-        //   dispatch(fetchData(config));
-        // }
+      
         const isPresent = checkForSuccessfull(response.message);
-        //   "Company Registered successfully."
         console.log(isPresent);
         if (isPresent) {
           dispatch(fetchData(config));
           setShow(false);
-          // handleRouteChange("/home");
         }
         console.log("sajna", response);
       });
@@ -58,7 +52,6 @@ function EmployeeSopRow({ icon, title, description, data,status }) {
   const dataas = {
     message: "Hello from Component A",
     sop: data,
-    // Add more data as needed
   };
   const handleButton = () => {
     console.log("sop", id);
@@ -94,7 +87,6 @@ function EmployeeSopRow({ icon, title, description, data,status }) {
         </div>
 {show && status == 0 ?
           <div className="hidden-box">
-            {/* <AiFillCloseCircle/> */}
             <button className="edit"  onClick={() => {handleClick(id)}} >View</button>
           </div>:""}
         <span className="danger" onClick={() => setShow(!show)}>

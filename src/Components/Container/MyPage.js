@@ -28,7 +28,6 @@ const MyCarousel = ({ objectData }) => {
       height: "100%",
     };
     const handleRouteChange = (route) => {
-        // Use the navigate() function to navigate to the specified route
         navigate(route);
       };
       const requestOptions = {
@@ -40,27 +39,21 @@ const MyCarousel = ({ objectData }) => {
         body: JSON.stringify({title:title,pages:pages,description:description})
       };
     const fetchData = (config,sopid) => {
-        // return (dispatch) => {
-          // dispatch(fetchUsersRequest());
+
           console.log("config")
           fetch('https://phplaravel-391561-3408566.cloudwaysapps.com/api/UpdateSOP/' + sopid ,config) // Replace with your API endpoint
             .then(response => {
               return response.json();
             })
             .then((response) => {
-              // Use parsed JSON data and text data as needed
               console.log('JSON data:', response);
               const isPresent = checkForSuccessfull(response.message);
-              //   "Company Registered successfully."
                 console.log(isPresent); 
                 if (isPresent){
                   handleRouteChange('/home')
                 }
-                //   console.log('Text data:', text);
-                // dispatch(fetchUsersSuccess(response)); // Dispatch success action with fetched data
               })
               .catch(error => {
-                // dispatch(fetchUsersFailure(error.message));
               });
               // };
             };
@@ -81,8 +74,6 @@ const MyCarousel = ({ objectData }) => {
           : page
       );
       setPages(updatedPages);
-    //   setPages(updatedPages);
-    //   setSelectedPage(null);
       console.log(pages)
     };
 useEffect(() => {
@@ -95,8 +86,6 @@ setPages(pages =>{
   pages = updatedPages;
   return pages;
 });
-//   setPages(updatedPages);
-//   setSelectedPage(null);
 console.log(pages)
 }, [editorContent])
 
@@ -119,7 +108,6 @@ console.log(pages)
           >
             {" "}
             <GrFormPrevious/>
-            {/* <Image src={prev} alt="quote" width={52} height={52} smooth /> */}
           </button>
         )
       }
@@ -140,7 +128,6 @@ console.log(pages)
           >
             {" "}
             <GrNext/>
-            {/* <Image src={next} alt="quote" width={52} height={52} /> */}
           </button>
         )
       }
@@ -154,7 +141,6 @@ console.log(pages)
        {page.id == selectedPage?.id ? <>  <div className='clisco'>  
           <h3>{page.pageTitle}</h3>
           <Editor setSop={setEditorContent} onChange={handleEditorChange} contents={editorContent}/>
-          {/* <p className='content' dangerouslySetInnerHTML={{ __html: page.pageContent }} /> */}
           </div>  
           <button   className='button' onClick={() =>{ handleSaveButtonClick(page);fetchData(requestOptions,page.sop_id,)}}>Finalise</button></>: 
           <>  <div className='clisco'>  
